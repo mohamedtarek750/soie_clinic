@@ -1,0 +1,628 @@
+/* =====================================================================
+   SOIE Clinic — script.js
+   Vanilla JavaScript. No libraries, no frameworks.
+   Handles: loader, sticky nav, mobile menu, scroll-spy, scroll reveals,
+   animated counters, hero parallax, custom cursor, booking modal,
+   gallery filtering, lightbox, testimonials slider, back-to-top,
+   footer year, and live "open / closed" working-hours status.
+   All motion respects the user's prefers-reduced-motion setting.
+   ===================================================================== */
+(function () {
+  'use strict';
+
+  /* ---------- tiny helpers ---------- */
+  var $  = function (sel, ctx) { return (ctx || document).querySelector(sel); };
+  var $$ = function (sel, ctx) { return Array.prototype.slice.call((ctx || document).querySelectorAll(sel)); };
+  var mq = function (q) {
+    try { return !!(window.matchMedia && window.matchMedia(q).matches); }
+    catch (e) { return false; }
+  };
+  var reduceMotion = mq('(prefers-reduced-motion: reduce)');
+  var finePointer  = mq('(hover: hover) and (pointer: fine)');
+  var raf = window.requestAnimationFrame
+    ? window.requestAnimationFrame.bind(window)
+    : function (fn) { return window.setTimeout(function () { fn(Date.now()); }, 16); };
+
+  var on = function (el, evt, fn, opts) { if (el) el.addEventListener(evt, fn, opts || false); };
+
+  function ready(fn) {
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', fn);
+    } else { fn(); }
+  }
+
+  /* =====================================================================
+     1. LOADER — reveal the page once everything is in
+     ===================================================================== */
+  function initLoader() {
+    var loader = $('#loader');
+    if (!loader) return;
+
+    function done() {
+      loader.classList.add('is-done');
+      document.body.classList.remove('is-loading');
+      // remove from the flow after the fade so it never traps focus
+      window.setTimeout(function () {
+        if (loader && loader.parentNode) loader.parentNode.removeChild(loader);
+      }, 900);
+    }
+
+    if (reduceMotion) { done(); return; }
+
+    // Give the gold-thread animation a beat, but never hang forever.
+    var minVisible = 1400;
+    var start = Date.now();
+    window.addEventListener('load', function () {
+      var wait = Math.max(0, minVisible - (Date.now() - start));
+      window.setTimeout(done, wait);
+    });
+    // hard fallback in case 'load' is slow
+    window.setTimeout(done, 4500);
+  }
+
+  /* =====================================================================
+     2. STICKY NAV + MOBILE MENU + SCROLL-SPY
+     ===================================================================== */
+  function initNav() {
+    var nav      = $('#nav');
+    var burger   = $('#burger');
+    var navLinks = $('#navLinks');
+    var links    = $$('.nav__link');
+
+    /* shrink / frost the bar after a little scroll */
+    function onScroll() {
+      if (!nav) return;
+      if (window.scrollY > 24) nav.classList.add('is-scrolled');
+      else nav.classList.remove('is-scrolled');
+    }
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+
+    /* mobile burger */
+    function closeMenu() {
+      document.body.classList.remove('menu-open');
+      if (burger) {
+        burger.setAttribute('aria-expanded', 'false');
+        burger.setAttribute('aria-label', 'Open menu');
+      }
+    }
+    function toggleMenu() {
+      var open = document.body.classList.toggle('menu-open');
+      if (burger) {
+        burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+        burger.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+      }
+    }
+    on(burger, 'click', toggleMenu);
+    // close after tapping any link (mobile) and on Esc
+    if (navLinks) {
+      on(navLinks, 'click', function (e) {
+        if (e.target.closest('.nav__link')) closeMenu();
+      });
+    }
+    on(document, 'keydown', function (e) {
+      if (e.key === 'Escape' && document.body.classList.contains('menu-open')) closeMenu();
+    });
+
+    /* scroll-spy: highlight the section currently in view */
+    var sections = links
+      .map(function (l) {
+        var id = l.getAttribute('href');
+        return id && id.charAt(0) === '#' ? document.getElementById(id.slice(1)) : null;
+      })
+      .filter(Boolean);
+
+    if ('IntersectionObserver' in window && sections.length) {
+      var spy = new IntersectionObserver(function (entries) {
+        entries.forEach(function (en) {
+          if (!en.isIntersecting) return;
+          var id = en.target.id;
+          links.forEach(function (l) {
+            l.classList.toggle('is-active', l.getAttribute('href') === '#' + id);
+          });
+        });
+      }, { rootMargin: '-45% 0px -50% 0px', threshold: 0 });
+      sections.forEach(function (s) { spy.observe(s); });
+    }
+  }
+
+  /* =====================================================================
+     3. SCROLL REVEALS + gold-thread draw
+     Elements with [data-reveal] fade/slide in. [data-reveal-delay="n"]
+     gives an explicit order; otherwise we stagger siblings automatically.
+     .thread-divider draws its gold line when it enters the viewport.
+     ===================================================================== */
+  function initReveals() {
+    var revealEls = $$('[data-reveal]');
+    var threads   = $$('.thread-divider, .hero__thread');
+
+    if (reduceMotion || !('IntersectionObserver' in window)) {
+      revealEls.forEach(function (el) { el.classList.add('is-in'); });
+      threads.forEach(function (el) { el.classList.add('is-in'); });
+      return;
+    }
+
+    // auto-stagger: index each element among its reveal siblings
+    var groups = new Map();
+    revealEls.forEach(function (el) {
+      var parent = el.parentNode;
+      var idx = groups.get(parent) || 0;
+      if (!el.hasAttribute('data-reveal-delay')) {
+        el.dataset._autodelay = idx;
+      }
+      groups.set(parent, idx + 1);
+    });
+
+    var io = new IntersectionObserver(function (entries, obs) {
+      entries.forEach(function (en) {
+        if (!en.isIntersecting) return;
+        var el = en.target;
+        var step = el.hasAttribute('data-reveal-delay')
+          ? parseInt(el.getAttribute('data-reveal-delay'), 10)
+          : parseInt(el.dataset._autodelay || 0, 10);
+        el.style.transitionDelay = (Math.min(step, 8) * 0.09) + 's';
+        el.classList.add('is-in');
+        obs.unobserve(el);
+      });
+    }, { rootMargin: '0px 0px -12% 0px', threshold: 0.08 });
+    revealEls.forEach(function (el) { io.observe(el); });
+
+    var iot = new IntersectionObserver(function (entries, obs) {
+      entries.forEach(function (en) {
+        if (!en.isIntersecting) return;
+        en.target.classList.add('is-in');
+        obs.unobserve(en.target);
+      });
+    }, { threshold: 0.35 });
+    threads.forEach(function (el) { iot.observe(el); });
+  }
+
+  /* =====================================================================
+     4. ANIMATED COUNTERS
+     .stat__num[data-count] counts up when scrolled into view.
+     Supports data-decimals, data-suffix, data-pad (zero-pad width).
+     ===================================================================== */
+  function initCounters() {
+    var nums = $$('.stat__num[data-count]');
+    if (!nums.length) return;
+
+    function format(el, value) {
+      var dec = parseInt(el.getAttribute('data-decimals') || '0', 10);
+      var pad = parseInt(el.getAttribute('data-pad') || '0', 10);
+      var suf = el.getAttribute('data-suffix') || '';
+      var out = dec > 0 ? value.toFixed(dec) : String(Math.round(value));
+      if (pad > 0) {
+        var intPart = out.split('.')[0];
+        while (intPart.length < pad) { intPart = '0' + intPart; }
+        out = dec > 0 ? intPart + out.slice(out.indexOf('.')) : intPart;
+      }
+      return out + suf;
+    }
+
+    function run(el) {
+      var target = parseFloat(el.getAttribute('data-count')) || 0;
+      if (reduceMotion) { el.textContent = format(el, target); return; }
+      var dur = 1600, t0 = null;
+      function tick(ts) {
+        if (t0 === null) t0 = ts;
+        var p = Math.min(1, (ts - t0) / dur);
+        var eased = 1 - Math.pow(1 - p, 3); // easeOutCubic
+        el.textContent = format(el, target * eased);
+        if (p < 1) raf(tick);
+        else el.textContent = format(el, target);
+      }
+      raf(tick);
+    }
+
+    if (!('IntersectionObserver' in window)) { nums.forEach(run); return; }
+    var io = new IntersectionObserver(function (entries, obs) {
+      entries.forEach(function (en) {
+        if (!en.isIntersecting) return;
+        run(en.target);
+        obs.unobserve(en.target);
+      });
+    }, { threshold: 0.6 });
+    nums.forEach(function (el) {
+      el.textContent = format(el, 0); // markup holds the final value for no-JS; reset before animating
+      io.observe(el);
+    });
+  }
+
+  /* =====================================================================
+     5. HERO PARALLAX — subtle depth on [data-parallax] elements
+     ===================================================================== */
+  function initParallax() {
+    if (reduceMotion) return;
+    var els = $$('[data-parallax]');
+    if (!els.length) return;
+
+    var ticking = false;
+    function update() {
+      var y = window.scrollY;
+      els.forEach(function (el) {
+        var f = parseFloat(el.getAttribute('data-parallax')) || 0;
+        el.style.transform = 'translate3d(0,' + (y * f).toFixed(1) + 'px,0)';
+      });
+      ticking = false;
+    }
+    window.addEventListener('scroll', function () {
+      if (!ticking) { raf(update); ticking = true; }
+    }, { passive: true });
+    update();
+  }
+
+  /* =====================================================================
+     6. CUSTOM CURSOR — a gold dot + trailing ring (fine pointers only)
+     ===================================================================== */
+  function initCursor() {
+    var dot  = $('#cursorDot');
+    var ring = $('#cursorRing');
+    if (!dot || !ring) return;
+    if (!finePointer || reduceMotion) { return; } // keep native cursor on touch
+
+    document.body.classList.add('cursor-on');
+
+    var mx = window.innerWidth / 2, my = window.innerHeight / 2;
+    var rx = mx, ry = my;
+
+    on(document, 'mousemove', function (e) {
+      mx = e.clientX; my = e.clientY;
+      dot.style.transform = 'translate3d(' + mx + 'px,' + my + 'px,0)';
+    });
+
+    function loop() {
+      rx += (mx - rx) * 0.18;
+      ry += (my - ry) * 0.18;
+      ring.style.transform = 'translate3d(' + rx + 'px,' + ry + 'px,0)';
+      raf(loop);
+    }
+    raf(loop);
+
+    // grow the ring over interactive things
+    var hoverSel = 'a, button, .ba, .filter, .s-card, input, textarea, [data-open-booking]';
+    on(document, 'mouseover', function (e) {
+      if (e.target.closest(hoverSel)) ring.classList.add('is-hover');
+    });
+    on(document, 'mouseout', function (e) {
+      if (e.target.closest(hoverSel)) ring.classList.remove('is-hover');
+    });
+    on(document, 'mouseleave', function () {
+      dot.style.opacity = '0'; ring.style.opacity = '0';
+    });
+    on(document, 'mouseenter', function () {
+      dot.style.opacity = ''; ring.style.opacity = '';
+    });
+  }
+
+  /* =====================================================================
+     7. BOOKING MODAL — opened by any [data-open-booking]
+     ===================================================================== */
+  function initModal() {
+    var modal = $('#bookingModal');
+    if (!modal) return;
+    var lastFocus = null;
+
+    function openModal() {
+      lastFocus = document.activeElement;
+      modal.classList.add('is-open');
+      modal.setAttribute('aria-hidden', 'false');
+      document.body.classList.add('modal-open');
+      var focusable = modal.querySelector('a, button, [tabindex]');
+      if (focusable) focusable.focus();
+    }
+    function closeModal() {
+      modal.classList.remove('is-open');
+      modal.setAttribute('aria-hidden', 'true');
+      document.body.classList.remove('modal-open');
+      if (lastFocus && lastFocus.focus) lastFocus.focus();
+    }
+
+    $$('[data-open-booking]').forEach(function (btn) {
+      on(btn, 'click', function (e) { e.preventDefault(); openModal(); });
+    });
+    $$('[data-close-booking]').forEach(function (btn) {
+      on(btn, 'click', closeModal);
+    });
+    on(document, 'keydown', function (e) {
+      if (e.key === 'Escape' && modal.classList.contains('is-open')) closeModal();
+    });
+
+    // simple focus trap while open
+    on(modal, 'keydown', function (e) {
+      if (e.key !== 'Tab' || !modal.classList.contains('is-open')) return;
+      var f = $$('a, button, [tabindex]:not([tabindex="-1"])', modal)
+        .filter(function (el) { return el.offsetParent !== null; });
+      if (!f.length) return;
+      var first = f[0], last = f[f.length - 1];
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    });
+  }
+
+  /* =====================================================================
+     8. GALLERY FILTER — .filter[data-filter] toggles .ba[data-cat]
+     ===================================================================== */
+  function initGalleryFilter() {
+    var buttons = $$('.filter');
+    var items   = $$('.ba');
+    if (!buttons.length || !items.length) return;
+
+    buttons.forEach(function (btn) {
+      on(btn, 'click', function () {
+        var cat = btn.getAttribute('data-filter');
+        buttons.forEach(function (b) {
+          var active = b === btn;
+          b.classList.toggle('is-active', active);
+          b.setAttribute('aria-pressed', active ? 'true' : 'false');
+        });
+        items.forEach(function (fig) {
+          var show = cat === 'all' || fig.getAttribute('data-cat') === cat;
+          fig.classList.toggle('is-hidden', !show);
+        });
+      });
+    });
+  }
+
+  /* =====================================================================
+     9. LIGHTBOX — click a before/after card to view it enlarged.
+     Prev/Next step through whatever is currently visible.
+     ===================================================================== */
+  function initLightbox() {
+    var box  = $('#lightbox');
+    var img  = $('#lbImg');
+    var cap  = $('#lbCap');
+    if (!box || !img) return;
+    var closeBtn = $('#lbClose');
+    var prevBtn  = $('#lbPrev');
+    var nextBtn  = $('#lbNext');
+    var all = $$('.ba');
+    var current = -1;
+    var lastFocus = null;
+
+    function visible() {
+      return all.filter(function (f) { return !f.classList.contains('is-hidden'); });
+    }
+    function show(fig) {
+      var pic = $('img', fig);
+      var name = $('.ba__name', fig);
+      if (!pic) return;
+      img.setAttribute('src', pic.getAttribute('src'));
+      img.setAttribute('alt', pic.getAttribute('alt') || '');
+      if (cap) cap.textContent = name ? name.textContent : '';
+    }
+    function openAt(fig) {
+      lastFocus = document.activeElement;
+      var list = visible();
+      current = list.indexOf(fig);
+      show(fig);
+      box.classList.add('is-open');
+      box.setAttribute('aria-hidden', 'false');
+      document.body.classList.add('modal-open');
+      if (closeBtn) closeBtn.focus();
+    }
+    function close() {
+      box.classList.remove('is-open');
+      box.setAttribute('aria-hidden', 'true');
+      document.body.classList.remove('modal-open');
+      if (lastFocus && lastFocus.focus) lastFocus.focus();
+    }
+    function step(dir) {
+      var list = visible();
+      if (!list.length) return;
+      current = (current + dir + list.length) % list.length;
+      show(list[current]);
+    }
+
+    all.forEach(function (fig) {
+      fig.setAttribute('tabindex', '0');
+      fig.setAttribute('role', 'button');
+      on(fig, 'click', function () { openAt(fig); });
+      on(fig, 'keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openAt(fig); }
+      });
+    });
+    on(closeBtn, 'click', close);
+    on(prevBtn, 'click', function () { step(-1); });
+    on(nextBtn, 'click', function () { step(1); });
+    on(box, 'click', function (e) { if (e.target === box) close(); }); // backdrop
+    on(document, 'keydown', function (e) {
+      if (!box.classList.contains('is-open')) return;
+      if (e.key === 'Escape') close();
+      else if (e.key === 'ArrowLeft') step(-1);
+      else if (e.key === 'ArrowRight') step(1);
+    });
+  }
+
+  /* =====================================================================
+     10. TESTIMONIALS SLIDER — transform track, dots, auto-advance, swipe
+     ===================================================================== */
+  function initTestimonials() {
+    var track = $('#tstTrack');
+    if (!track) return;
+    var cards = $$('.tst__card', track);
+    if (cards.length < 2) return;
+    var prev = $('#tstPrev');
+    var next = $('#tstNext');
+    var dotsWrap = $('#tstDots');
+    var index = 0;
+    var timer = null;
+    var DELAY = 5600;
+
+    // build dots
+    var dots = [];
+    if (dotsWrap) {
+      cards.forEach(function (_, i) {
+        var d = document.createElement('button');
+        d.className = 'tst__dot';
+        d.type = 'button';
+        d.setAttribute('aria-label', 'Go to review ' + (i + 1));
+        on(d, 'click', function () { go(i); reset(); });
+        dotsWrap.appendChild(d);
+        dots.push(d);
+      });
+    }
+
+    function go(i) {
+      index = (i + cards.length) % cards.length;
+      track.style.transform = 'translateX(' + (-index * 100) + '%)';
+      dots.forEach(function (d, di) { d.classList.toggle('is-active', di === index); });
+    }
+    function nextSlide() { go(index + 1); }
+    function prevSlide() { go(index - 1); }
+
+    function start() {
+      if (reduceMotion) return;
+      stop();
+      timer = window.setInterval(nextSlide, DELAY);
+    }
+    function stop() { if (timer) { clearInterval(timer); timer = null; } }
+    function reset() { stop(); start(); }
+
+    on(next, 'click', function () { nextSlide(); reset(); });
+    on(prev, 'click', function () { prevSlide(); reset(); });
+
+    // pause on hover / focus
+    var vp = $('.tst__viewport') || track.parentNode;
+    on(vp, 'mouseenter', stop);
+    on(vp, 'mouseleave', start);
+    on(vp, 'focusin', stop);
+    on(vp, 'focusout', start);
+
+    // touch swipe
+    var x0 = null;
+    on(track, 'touchstart', function (e) { x0 = e.touches[0].clientX; stop(); }, { passive: true });
+    on(track, 'touchend', function (e) {
+      if (x0 === null) return;
+      var dx = e.changedTouches[0].clientX - x0;
+      if (Math.abs(dx) > 40) { dx < 0 ? nextSlide() : prevSlide(); }
+      x0 = null; start();
+    });
+
+    // pause when the tab is hidden
+    on(document, 'visibilitychange', function () {
+      document.hidden ? stop() : start();
+    });
+
+    go(0);
+    start();
+  }
+
+  /* =====================================================================
+     11. BACK-TO-TOP button
+     ===================================================================== */
+  function initToTop() {
+    var btn = $('#toTop');
+    if (!btn) return;
+    function onScroll() {
+      btn.classList.toggle('is-visible', window.scrollY > 600);
+    }
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    on(btn, 'click', function () {
+      window.scrollTo({ top: 0, behavior: reduceMotion ? 'auto' : 'smooth' });
+    });
+  }
+
+  /* =====================================================================
+     12. FOOTER YEAR
+     ===================================================================== */
+  function initYear() {
+    var y = $('#year');
+    if (y) y.textContent = String(new Date().getFullYear());
+  }
+
+  /* =====================================================================
+     13. WORKING HOURS — highlight today + live open / closed status.
+     We read today's row straight from the DOM so the status always
+     matches whatever hours are shown (no duplicated data to keep in sync).
+     ===================================================================== */
+  function initHours() {
+    var rows = $$('.hours__row');
+    var statusEl = $('#openStatus');
+    var textEl = $('#openStatusText');
+    if (!rows.length) return;
+
+    var now = new Date();
+    var today = now.getDay();            // 0 = Sunday … 6 = Saturday
+    var mins = now.getHours() * 60 + now.getMinutes();
+    var todayRow = null;
+
+    rows.forEach(function (row) {
+      var d = parseInt(row.getAttribute('data-day'), 10);
+      var isToday = d === today;
+      row.classList.toggle('is-today', isToday);
+      if (isToday) todayRow = row;
+    });
+
+    if (!statusEl || !textEl) return;
+
+    function parseTime(str) {
+      // expects e.g. "10:00 AM" -> minutes since midnight
+      var m = str.trim().match(/(\d{1,2}):(\d{2})\s*(AM|PM)/i);
+      if (!m) return null;
+      var h = parseInt(m[1], 10) % 12;
+      var min = parseInt(m[2], 10);
+      if (/PM/i.test(m[3])) h += 12;
+      return h * 60 + min;
+    }
+
+    var open = false, opensAt = null;
+    if (todayRow) {
+      var timeEl = $('.hours__time', todayRow);
+      if (timeEl) {
+        var parts = timeEl.textContent.split(/[–—-]/); // en/em dash or hyphen
+        if (parts.length === 2) {
+          var start = parseTime(parts[0]);
+          var end = parseTime(parts[1]);
+          if (start !== null && end !== null) {
+            open = mins >= start && mins < end;
+            opensAt = start;
+          }
+        }
+      }
+    }
+
+    statusEl.classList.remove('is-open', 'is-closed');
+    if (open) {
+      statusEl.classList.add('is-open');
+      textEl.textContent = 'Open now';
+    } else {
+      statusEl.classList.add('is-closed');
+      if (opensAt !== null && mins < opensAt && todayRow) {
+        var h12 = Math.floor(opensAt / 60);
+        var mm = opensAt % 60;
+        var ampm = h12 >= 12 ? 'PM' : 'AM';
+        var hh = h12 % 12; if (hh === 0) hh = 12;
+        textEl.textContent = 'Closed · opens ' + hh + ':' + (mm < 10 ? '0' + mm : mm) + ' ' + ampm;
+      } else {
+        textEl.textContent = 'Closed now';
+      }
+    }
+  }
+
+  /* =====================================================================
+     BOOT
+     ===================================================================== */
+  function safe(fn, name) {
+    try { fn(); }
+    catch (e) {
+      if (window.console && console.warn) console.warn('SOIE: "' + name + '" failed —', e);
+    }
+  }
+
+  safe(initLoader, 'loader'); // start immediately so the fade feels responsive
+  ready(function () {
+    safe(initNav, 'nav');
+    safe(initReveals, 'reveals');
+    safe(initCounters, 'counters');
+    safe(initParallax, 'parallax');
+    safe(initCursor, 'cursor');
+    safe(initModal, 'modal');
+    safe(initGalleryFilter, 'gallery filter');
+    safe(initLightbox, 'lightbox');
+    safe(initTestimonials, 'testimonials');
+    safe(initToTop, 'to-top');
+    safe(initYear, 'year');
+    safe(initHours, 'hours');
+  });
+})();
