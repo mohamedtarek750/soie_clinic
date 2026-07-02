@@ -37,17 +37,19 @@ Doctor/treatment pages deep-link with `book.html?doctor=<slug>` and
   behind Instagram's login wall and cannot be embedded, so the original
   silk-gradient hero remains active until a licensed clinic video
   (`assets/videos/hero-loop.mp4`) is provided.
-- **Doctor portraits** — profile pages currently show gold monogram
-  avatars. Drop portraits into `assets/images/` and swap the marked
-  `<div class="dr-ava">` blocks (see the HTML comments in each
-  `doctor-*.html`).
 - **Dr. Nada Salama's profile** — her Instagram is not publicly
   readable, so only verified basics are shown. Add her specialty, bio
   and treatments in `doctor-nada-salama.html` when confirmed.
 - **Products** — `products.html` lists doctor-curated categories; replace
   with the clinic's actual retail range (brand, product, price) when
   confirmed.
-- **Testimonials & 4.9 rating** — sample data, replace with real reviews.
+- **4.9 rating stat** — sample figure; replace with the real Google rating.
+
+Already provided by the owner: doctor portraits
+(`assets/images/doctor-*.jpg`) and real client reviews — the homepage
+testimonials are transcribed verbatim from the clinic's WhatsApp feedback
+screenshots (names are blurred in the originals, so cards say
+"Verified client").
 
 ## Editing notes
 
