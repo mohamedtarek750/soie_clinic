@@ -548,6 +548,27 @@ html.js .thread-divider path { stroke-dasharray: 2600; stroke-dashoffset: 2600; 
 .tst__meta { font-size: .78rem; letter-spacing: .1em; text-transform: uppercase; color: var(--gold-deep); }
 .tst__stars { color: var(--gold); letter-spacing: .25em; margin-top: .8rem; font-size: .9rem; }
 
+/* real client reviews — screenshot film strip (snap scroll + lightbox) */
+.rv { max-width: 1320px; margin-inline: auto; }
+.rv__strip {
+  display: flex; gap: clamp(.9rem, 2vw, 1.4rem);
+  overflow-x: auto; scroll-snap-type: x proximity;
+  padding: .6rem clamp(1.25rem, 5vw, 2.75rem) 1.4rem;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.rv__strip::-webkit-scrollbar { display: none; }
+.rv-shot {
+  flex: 0 0 auto; scroll-snap-align: center; cursor: pointer;
+  height: clamp(320px, 52vw, 470px);
+  border-radius: var(--radius); overflow: hidden;
+  border: 1px solid var(--line); background: var(--ivory); box-shadow: var(--sh-sm);
+  transition: transform .5s var(--ease), box-shadow .5s var(--ease), border-color .5s var(--ease);
+}
+.rv-shot img { height: 100%; width: auto; display: block; }
+.rv-shot:hover { transform: translateY(-6px); box-shadow: var(--sh-md); border-color: var(--gold-soft); }
+@media (hover: none) { .rv-shot:hover { transform: none; box-shadow: var(--sh-sm); } }
+
 /* real WhatsApp reviews: verbatim quotes, RTL support, translations */
 .tst__card--long blockquote { font-size: clamp(1.02rem, 2.2vw, 1.45rem); line-height: 1.62; }
 .tst__card blockquote[dir="rtl"] { direction: rtl; }

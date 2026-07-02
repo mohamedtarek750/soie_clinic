@@ -378,7 +378,7 @@
     var closeBtn = $('#lbClose');
     var prevBtn  = $('#lbPrev');
     var nextBtn  = $('#lbNext');
-    var all = $$('.ba');
+    var all = $$('.ba, .rv-shot'); // before/after cards + review screenshots
     var current = -1;
     var lastFocus = null;
 
@@ -508,6 +508,23 @@
 
     go(0);
     start();
+  }
+
+  /* =====================================================================
+     10b. REVIEW STRIP — arrow buttons step the snap-scrolling screenshot
+     strip by one card; native swipe/scroll works as-is.
+     ===================================================================== */
+  function initReviewStrip() {
+    var strip = $('#rvStrip');
+    if (!strip) return;
+    function step(dir) {
+      var card = $('.rv-shot', strip);
+      var gap = 18;
+      var w = card ? card.getBoundingClientRect().width + gap : 320;
+      strip.scrollBy({ left: dir * w, behavior: reduceMotion ? 'auto' : 'smooth' });
+    }
+    on($('#rvPrev'), 'click', function () { step(-1); });
+    on($('#rvNext'), 'click', function () { step(1); });
   }
 
   /* =====================================================================
@@ -795,6 +812,7 @@
     safe(initGalleryFilter, 'gallery filter');
     safe(initLightbox, 'lightbox');
     safe(initTestimonials, 'testimonials');
+    safe(initReviewStrip, 'review strip');
     safe(initToTop, 'to-top');
     safe(initYear, 'year');
     safe(initHours, 'hours');
