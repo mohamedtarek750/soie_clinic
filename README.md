@@ -13,7 +13,6 @@ No build step — open `index.html` or serve the folder with any static server.
 | Doctors | `doctors.html` → `doctor-ghada.html`, `doctor-ghada-metwally.html`, `doctor-nada-salama.html` |
 | Services | `services.html` → `service-<treatment>.html` (11 treatment pages) |
 | Products | `products.html` |
-| Gallery | `gallery.html` |
 | Before & After | `before-after.html` |
 | Book Appointment | `book.html` |
 | Contact | `contact.html` |

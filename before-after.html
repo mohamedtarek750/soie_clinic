@@ -49,7 +49,6 @@
         <a href="doctors.html" class="nav__link">Doctors</a>
         <a href="services.html" class="nav__link">Services</a>
         <a href="products.html" class="nav__link">Products</a>
-        <a href="gallery.html" class="nav__link">Gallery</a>
         <a href="before-after.html" class="nav__link is-active">Before & After</a>
         <a href="faq.html" class="nav__link">FAQ</a>
         <a href="contact.html" class="nav__link">Contact</a>
@@ -81,6 +80,25 @@
 
     <section class="section gallery" style="padding-top:clamp(2.5rem,5vw,4rem)">
       <div class="container">
+        <div class="cmp-feature" data-reveal>
+          <div class="cmp" id="cmpUndereye">
+            <img class="cmp__after" src="assets/images/ba-slider-after.jpg" alt="After under-eye filler at SOIE Clinic — brightened, smooth under-eyes" width="1100" height="559" />
+            <img class="cmp__before" src="assets/images/ba-slider-before.jpg" alt="Before under-eye filler — visible hollows and dark circles" width="1100" height="559" />
+            <span class="cmp__tag cmp__tag--before" aria-hidden="true">Before</span>
+            <span class="cmp__tag cmp__tag--after" aria-hidden="true">After</span>
+            <input type="range" class="cmp__range" min="0" max="100" value="50" step="0.5" aria-label="Drag to compare before and after" />
+            <div class="cmp__divider" aria-hidden="true"></div>
+            <div class="cmp__grip" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5"/></svg>
+            </div>
+          </div>
+          <div class="cmp-feature__cap">
+            <span class="cap-name">Under-eye Filler</span>
+            <span class="cap-meta">By Dr. Rana Mofeed</span>
+          </div>
+          <p class="cmp-feature__hint">Drag the gold handle to compare</p>
+        </div>
+
         <div class="filters" data-reveal role="group" aria-label="Filter results">
           <button class="filter is-active" data-filter="all" aria-pressed="true">All</button>
           <button class="filter" data-filter="lips" aria-pressed="false">Lips</button>
@@ -94,10 +112,6 @@
           <figure class="ba" data-cat="lips">
             <img src="assets/images/ba-lip-filler.jpg" alt="Lip Filler before and after result at SOIE Clinic" loading="lazy" decoding="async" width="880" height="1450" />
             <figcaption class="ba__cap"><span class="ba__tag">Before &amp; After</span><span class="ba__name">Lip Filler</span></figcaption>
-          </figure>
-          <figure class="ba" data-cat="eyes">
-            <img src="assets/images/ba-undereye-fillers.jpg" alt="Under-eye Filler before and after result at SOIE Clinic" loading="lazy" decoding="async" width="880" height="1450" />
-            <figcaption class="ba__cap"><span class="ba__tag">Before &amp; After</span><span class="ba__name">Under-eye Filler</span></figcaption>
           </figure>
           <figure class="ba" data-cat="botox">
             <img src="assets/images/ba-botox.jpg" alt="Botox before and after result at SOIE Clinic" loading="lazy" decoding="async" width="880" height="1450" />
@@ -207,7 +221,6 @@
         <a href="doctors.html">Doctors</a>
         <a href="services.html">Services</a>
         <a href="products.html">Products</a>
-        <a href="gallery.html">Gallery</a>
         <a href="before-after.html">Before & After</a>
         <a href="faq.html">FAQ</a>
         <a href="contact.html">Contact</a>

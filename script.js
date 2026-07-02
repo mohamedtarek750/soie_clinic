@@ -511,6 +511,20 @@
   }
 
   /* =====================================================================
+     10a. BEFORE/AFTER COMPARISON SLIDER — the hidden range input drives
+     the --pos CSS var; drag, touch and arrow keys all come for free.
+     ===================================================================== */
+  function initCompare() {
+    $$('.cmp').forEach(function (cmp) {
+      var range = $('.cmp__range', cmp);
+      if (!range) return;
+      function apply() { cmp.style.setProperty('--pos', range.value + '%'); }
+      on(range, 'input', apply);
+      apply();
+    });
+  }
+
+  /* =====================================================================
      10b. REVIEW STRIP — arrow buttons step the snap-scrolling screenshot
      strip by one card; native swipe/scroll works as-is.
      ===================================================================== */
@@ -813,6 +827,7 @@
     safe(initLightbox, 'lightbox');
     safe(initTestimonials, 'testimonials');
     safe(initReviewStrip, 'review strip');
+    safe(initCompare, 'compare slider');
     safe(initToTop, 'to-top');
     safe(initYear, 'year');
     safe(initHours, 'hours');
