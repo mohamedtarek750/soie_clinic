@@ -15,9 +15,12 @@
 
   <!-- Open Graph / social preview -->
   <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="SOIE Clinic" />
   <meta property="og:title" content="SOIE Clinic — Luxury Aesthetic Clinic" />
   <meta property="og:description" content="Where natural beauty meets refined care. Botox, fillers, laser, facials and more across two Cairo branches." />
-  <meta property="og:image" content="assets/images/logo.png" />
+  <meta property="og:url" content="https://soieclinic.com/" />
+  <meta property="og:image" content="https://soieclinic.com/assets/images/logo.png" />
+  <meta name="twitter:card" content="summary" />
 
   <link rel="icon" type="image/png" href="assets/images/favicon.png" />
   <link rel="apple-touch-icon" href="assets/images/favicon.png" />
@@ -90,14 +93,16 @@
       </a>
 
       <nav class="nav__links" id="navLinks" aria-label="Primary">
-        <a href="#home" class="nav__link is-active">Home</a>
-        <a href="#about" class="nav__link">About</a>
-        <a href="#services" class="nav__link">Services</a>
-        <a href="#gallery" class="nav__link">Before &amp; After</a>
-        <a href="#why" class="nav__link">Why Us</a>
-        <a href="#testimonials" class="nav__link">Reviews</a>
-        <a href="#contact" class="nav__link">Contact</a>
-        <button class="btn btn--gold nav__cta" data-open-booking>Book Appointment</button>
+        <a href="index.html" class="nav__link is-active">Home</a>
+        <a href="about.html" class="nav__link">About</a>
+        <a href="doctors.html" class="nav__link">Doctors</a>
+        <a href="services.html" class="nav__link">Services</a>
+        <a href="products.html" class="nav__link">Products</a>
+        <a href="gallery.html" class="nav__link">Gallery</a>
+        <a href="before-after.html" class="nav__link">Before &amp; After</a>
+        <a href="faq.html" class="nav__link">FAQ</a>
+        <a href="contact.html" class="nav__link">Contact</a>
+        <a href="book.html" class="btn btn--gold nav__cta">Book Appointment</a>
       </nav>
 
       <button class="nav__burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="navLinks">
@@ -112,6 +117,24 @@
          HERO
     ============================================================= -->
     <section class="hero" id="home">
+      <!-- ============================================================
+           OPTIONAL CINEMATIC VIDEO HERO
+           Instagram videos cannot legally/technically be embedded here
+           (the profiles are behind Instagram's login wall and reels are
+           not licensed for hotlinking). To activate the video hero:
+             1. Export a clinic video (MP4/H.264, ~10–20s loop, ≤8MB,
+                1920×1080) to  assets/videos/hero-loop.mp4
+                plus a poster frame at  assets/images/hero-poster.jpg
+             2. Add class "hero--video" to this <section>
+             3. Un-comment the two elements below.
+           The dark overlay (.hero__veil) keeps text readable; styles
+           already exist in style.css §26.
+      <video class="hero__video" autoplay muted loop playsinline
+             preload="metadata" poster="assets/images/hero-poster.jpg" aria-hidden="true">
+        <source src="assets/videos/hero-loop.mp4" type="video/mp4" />
+      </video>
+      <div class="hero__veil" aria-hidden="true"></div>
+      ============================================================= -->
       <!-- ambient silk orbs (parallax) -->
       <div class="hero__orb hero__orb--1" data-parallax="0.18" aria-hidden="true"></div>
       <div class="hero__orb hero__orb--2" data-parallax="0.30" aria-hidden="true"></div>
@@ -146,7 +169,7 @@
             Book your appointment
             <svg viewBox="0 0 24 24" class="btn__arrow" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </button>
-          <a href="#services" class="btn btn--ghost btn--lg">Explore treatments</a>
+          <a href="services.html" class="btn btn--ghost btn--lg">Explore treatments</a>
         </div>
       </div>
 
@@ -260,120 +283,174 @@
         <div class="services__grid">
 
           <!-- Botox -->
-          <article class="s-card" data-reveal>
+          <a class="s-card" href="service-botox.html" data-reveal>
             <div class="s-card__ico">
               <svg viewBox="0 0 40 40" aria-hidden="true"><path d="M25 8l7 7M27 12l-13 13-4 5-1 4 4-1 5-4 13-13M11 25l4 4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </div>
             <h3 class="s-card__title">Botox</h3>
             <p class="s-card__desc">Softens fine lines and expression wrinkles for a smooth, well-rested look — never frozen.</p>
-            <span class="s-card__link">Learn more <i aria-hidden="true">→</i></span>
-          </article>
+            <span class="s-card__link">View treatment <i aria-hidden="true">→</i></span>
+          </a>
 
           <!-- Filler -->
-          <article class="s-card" data-reveal>
+          <a class="s-card" href="service-dermal-filler.html" data-reveal>
             <div class="s-card__ico">
               <svg viewBox="0 0 40 40" aria-hidden="true"><path d="M20 6c5 7 9 12 9 17a9 9 0 11-18 0c0-5 4-10 9-17z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
             </div>
             <h3 class="s-card__title">Dermal Filler</h3>
             <p class="s-card__desc">Restores volume and contour to lips, cheeks, jawline and under-eyes with balanced precision.</p>
-            <span class="s-card__link">Learn more <i aria-hidden="true">→</i></span>
-          </article>
+            <span class="s-card__link">View treatment <i aria-hidden="true">→</i></span>
+          </a>
 
           <!-- Dentistry -->
-          <article class="s-card" data-reveal>
+          <a class="s-card" href="service-dentistry.html" data-reveal>
             <div class="s-card__ico">
               <svg viewBox="0 0 40 40" aria-hidden="true"><path d="M14 8c-4 0-6 3-6 8 0 6 2 9 3 13 1 3 3 3 4-1 1-3 1-5 5-5s4 2 5 5c1 4 3 4 4 1 1-4 3-7 3-13 0-5-2-8-6-8-3 0-4 2-6 2s-3-2-6-2z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
             </div>
             <h3 class="s-card__title">Dentistry</h3>
             <p class="s-card__desc">Aesthetic dental care for a healthy, confident smile — from whitening to full smile design.</p>
-            <span class="s-card__link">Learn more <i aria-hidden="true">→</i></span>
-          </article>
+            <span class="s-card__link">View treatment <i aria-hidden="true">→</i></span>
+          </a>
 
           <!-- Laser -->
-          <article class="s-card" data-reveal>
+          <a class="s-card" href="service-laser.html" data-reveal>
             <div class="s-card__ico">
               <svg viewBox="0 0 40 40" aria-hidden="true"><path d="M20 6v7M20 27v7M6 20h7M27 20h7M11 11l5 5M24 24l5 5M29 11l-5 5M16 24l-5 5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><circle cx="20" cy="20" r="3.4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
             </div>
             <h3 class="s-card__title">Laser</h3>
             <p class="s-card__desc">Advanced laser for hair reduction, pigmentation and skin renewal — smooth, even, luminous.</p>
-            <span class="s-card__link">Learn more <i aria-hidden="true">→</i></span>
-          </article>
+            <span class="s-card__link">View treatment <i aria-hidden="true">→</i></span>
+          </a>
 
           <!-- Facial -->
-          <article class="s-card" data-reveal>
+          <a class="s-card" href="service-facial.html" data-reveal>
             <div class="s-card__ico">
               <svg viewBox="0 0 40 40" aria-hidden="true"><path d="M20 6c8 0 13 6 13 14s-5 14-13 14S7 28 7 20 12 6 20 6z" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M15 18c1.2 1 2.8 1 4 0M21 18c1.2 1 2.8 1 4 0M15 26c2.6 2.4 7.4 2.4 10 0" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
             </div>
             <h3 class="s-card__title">Facial</h3>
             <p class="s-card__desc">Bespoke facials that cleanse, nourish and rebalance the skin for an immediate, healthy glow.</p>
-            <span class="s-card__link">Learn more <i aria-hidden="true">→</i></span>
-          </article>
+            <span class="s-card__link">View treatment <i aria-hidden="true">→</i></span>
+          </a>
 
           <!-- Hydrafacial -->
-          <article class="s-card" data-reveal>
+          <a class="s-card" href="service-hydrafacial.html" data-reveal>
             <div class="s-card__ico">
               <svg viewBox="0 0 40 40" aria-hidden="true"><path d="M14 8c4 6 7 10 7 14a7 7 0 11-14 0c0-4 3-8 7-14z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M26 16c2.4 3.6 4 6 4 8.4a4 4 0 11-8 0c0-2.4 1.6-4.8 4-8.4z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
             </div>
             <h3 class="s-card__title">Hydrafacial</h3>
             <p class="s-card__desc">Deep cleansing, gentle exfoliation and intense hydration in one signature glass-skin treatment.</p>
-            <span class="s-card__link">Learn more <i aria-hidden="true">→</i></span>
-          </article>
+            <span class="s-card__link">View treatment <i aria-hidden="true">→</i></span>
+          </a>
 
           <!-- Skin Boosters -->
-          <article class="s-card" data-reveal>
+          <a class="s-card" href="service-skin-boosters.html" data-reveal>
             <div class="s-card__ico">
               <svg viewBox="0 0 40 40" aria-hidden="true"><path d="M20 6l2.6 7.4L30 16l-7.4 2.6L20 26l-2.6-7.4L10 16l7.4-2.6z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M29 26l1.2 3.4L33 31l-2.8 1.6L29 36l-1.2-3.4L25 31l2.8-1.6z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>
             </div>
             <h3 class="s-card__title">Skin Boosters</h3>
             <p class="s-card__desc">Micro-injections of hydrating actives that restore luminosity, bounce and lasting radiance.</p>
-            <span class="s-card__link">Learn more <i aria-hidden="true">→</i></span>
-          </article>
+            <span class="s-card__link">View treatment <i aria-hidden="true">→</i></span>
+          </a>
 
           <!-- Peeling -->
-          <article class="s-card" data-reveal>
+          <a class="s-card" href="service-peeling.html" data-reveal>
             <div class="s-card__ico">
               <svg viewBox="0 0 40 40" aria-hidden="true"><path d="M30 10c0 9-7 16-16 16-2 0-4 0-4 0s0-2 0-4c0-9 7-16 16-16 2 0 4 0 4 0s0 2 0 4z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M14 26c4-4 8-6 12-8" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
             </div>
             <h3 class="s-card__title">Peeling</h3>
             <p class="s-card__desc">Medical chemical peels that resurface dull skin, refine texture and even out tone.</p>
-            <span class="s-card__link">Learn more <i aria-hidden="true">→</i></span>
-          </article>
+            <span class="s-card__link">View treatment <i aria-hidden="true">→</i></span>
+          </a>
 
           <!-- Exosomes -->
-          <article class="s-card" data-reveal>
+          <a class="s-card" href="service-exosomes.html" data-reveal>
             <div class="s-card__ico">
               <svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="5" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="10" cy="12" r="2.4" fill="none" stroke="currentColor" stroke-width="1.4"/><circle cx="30" cy="12" r="2.4" fill="none" stroke="currentColor" stroke-width="1.4"/><circle cx="11" cy="30" r="2.4" fill="none" stroke="currentColor" stroke-width="1.4"/><circle cx="30" cy="29" r="2.4" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M13.6 13.6l3 3M27 13.6l-3 3M13.4 27.4l3-3M27 27l-3-3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
             </div>
             <h3 class="s-card__title">Exosomes</h3>
             <p class="s-card__desc">Next-generation regenerative therapy that supports skin and hair renewal at a cellular level.</p>
-            <span class="s-card__link">Learn more <i aria-hidden="true">→</i></span>
-          </article>
+            <span class="s-card__link">View treatment <i aria-hidden="true">→</i></span>
+          </a>
 
           <!-- Body Contouring INDIBA -->
-          <article class="s-card" data-reveal>
+          <a class="s-card" href="service-body-contouring.html" data-reveal>
             <div class="s-card__ico">
               <svg viewBox="0 0 40 40" aria-hidden="true"><path d="M6 15c3-2 5 2 8 0s5-2 8 0 5 2 8 0M6 22c3-2 5 2 8 0s5-2 8 0 5 2 8 0M6 29c3-2 5 2 8 0s5-2 8 0 5 2 8 0" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
             </div>
             <h3 class="s-card__title">Body Contouring</h3>
             <p class="s-card__desc">Non-invasive sculpting and firming with the advanced <strong>INDIBA</strong> radiofrequency device.</p>
-            <span class="s-card__link">Learn more <i aria-hidden="true">→</i></span>
-          </article>
+            <span class="s-card__link">View treatment <i aria-hidden="true">→</i></span>
+          </a>
 
           <!-- Veneers -->
-          <article class="s-card" data-reveal>
+          <a class="s-card" href="service-veneers.html" data-reveal>
             <div class="s-card__ico">
               <svg viewBox="0 0 40 40" aria-hidden="true"><rect x="11" y="9" width="18" height="22" rx="6" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M15 15c2-1.4 4-1.4 6 0M23 15c1.6-1.2 4-1 5 0" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/><path d="M27 12l1 3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
             </div>
             <h3 class="s-card__title">Veneers</h3>
             <p class="s-card__desc">Custom porcelain veneers that transform your smile with natural shape, colour and shine.</p>
-            <span class="s-card__link">Learn more <i aria-hidden="true">→</i></span>
-          </article>
+            <span class="s-card__link">View treatment <i aria-hidden="true">→</i></span>
+          </a>
 
         </div>
 
         <div class="services__foot" data-reveal>
           <p>Not sure where to start? Our specialists will guide you.</p>
           <button class="btn btn--gold" data-open-booking>Book a consultation</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         DOCTORS TEASER
+    ============================================================= -->
+    <section class="section" id="doctors">
+      <div class="container">
+        <header class="section__head">
+          <p class="eyebrow" data-reveal><span class="eyebrow__dot"></span> Our specialists</p>
+          <h2 class="section__title section__title--center" data-reveal>The hands behind the artistry</h2>
+          <p class="section__sub" data-reveal>
+            Every SOIE doctor pairs medical precision with an artist's eye — meet the specialists
+            who will design and deliver your treatment plan.
+          </p>
+        </header>
+
+        <div class="dr-grid">
+          <article class="dr-card" data-reveal>
+            <div class="dr-ava" aria-hidden="true"><span>G</span></div>
+            <h3 class="dr-card__name">Dr. Ghada</h3>
+            <p class="dr-card__spec">Health, Nutrition &amp; Body Wellness</p>
+            <p class="dr-card__desc">Guides the wellness side of SOIE — nutrition, weight management and non-surgical body treatments that make aesthetic results last.</p>
+            <div class="dr-card__actions">
+              <a href="doctor-ghada.html" class="btn btn--gold">View profile</a>
+              <a href="https://www.instagram.com/drghada.health" class="btn btn--ig" target="_blank" rel="noopener noreferrer">Instagram</a>
+            </div>
+          </article>
+          <article class="dr-card" data-reveal>
+            <div class="dr-ava" aria-hidden="true"><span>GM</span></div>
+            <h3 class="dr-card__name">Dr. Ghada Metwally</h3>
+            <p class="dr-card__spec">Medical Facials &amp; Skin Treatments</p>
+            <p class="dr-card__desc">“A blissful facial journey” — medical facials, HydraFacial, Dermapen, OxyGeneo, peels and laser skin treatments in New Cairo.</p>
+            <div class="dr-card__actions">
+              <a href="doctor-ghada-metwally.html" class="btn btn--gold">View profile</a>
+              <a href="https://www.instagram.com/dr_ghada_metwally_facials" class="btn btn--ig" target="_blank" rel="noopener noreferrer">Instagram</a>
+            </div>
+          </article>
+          <article class="dr-card" data-reveal>
+            <div class="dr-ava" aria-hidden="true"><span>NS</span></div>
+            <h3 class="dr-card__name">Dr. Nada Salama</h3>
+            <p class="dr-card__spec">SOIE Clinic Medical Team</p>
+            <p class="dr-card__desc">Part of the SOIE Clinic medical team. Her full professional profile is being prepared and will be published soon.</p>
+            <div class="dr-card__actions">
+              <a href="doctor-nada-salama.html" class="btn btn--gold">View profile</a>
+              <a href="https://www.instagram.com/dr.nadasalama" class="btn btn--ig" target="_blank" rel="noopener noreferrer">Instagram</a>
+            </div>
+          </article>
+        </div>
+
+        <div class="services__foot" data-reveal>
+          <p>Meet the full team and find your specialist.</p>
+          <a class="btn btn--gold" href="doctors.html">All doctors</a>
         </div>
       </div>
     </section>
@@ -400,19 +477,9 @@
           <h2 class="section__title section__title--center" data-reveal>Before &amp; After</h2>
           <p class="section__sub" data-reveal>
             A selection of real transformations by our specialists. Subtle, natural, balanced —
-            the SOIE signature. Tap any result to view it larger.
+            the SOIE signature. Tap any result to view it larger, or browse the full collection.
           </p>
         </header>
-
-        <!-- Filter -->
-        <div class="filters" data-reveal role="group" aria-label="Filter results">
-          <button class="filter is-active" data-filter="all" aria-pressed="true">All</button>
-          <button class="filter" data-filter="lips" aria-pressed="false">Lips</button>
-          <button class="filter" data-filter="eyes" aria-pressed="false">Under-eye</button>
-          <button class="filter" data-filter="botox" aria-pressed="false">Botox</button>
-          <button class="filter" data-filter="contour" aria-pressed="false">Contour</button>
-          <button class="filter" data-filter="skinhair" aria-pressed="false">Skin &amp; Hair</button>
-        </div>
 
         <div class="gallery__grid" id="galleryGrid">
           <!-- IMAGE 1 -->
@@ -445,36 +512,11 @@
             <img src="assets/images/ba-lip-filler-2.jpg" alt="Lip filler before and after result" loading="lazy" width="880" height="1450" />
             <figcaption class="ba__cap"><span class="ba__tag">Before &amp; After</span><span class="ba__name">Lip Filler</span></figcaption>
           </figure>
-          <!-- IMAGE 7 -->
-          <figure class="ba" data-cat="contour">
-            <img src="assets/images/ba-nasolabial-folds.jpg" alt="Nasolabial folds filler before and after result" loading="lazy" width="880" height="1450" />
-            <figcaption class="ba__cap"><span class="ba__tag">Before &amp; After</span><span class="ba__name">Nasolabial Folds</span></figcaption>
-          </figure>
-          <!-- IMAGE 8 -->
-          <figure class="ba" data-cat="skinhair">
-            <img src="assets/images/ba-hair-facial.jpg" alt="Hair facial before and after result" loading="lazy" width="880" height="1450" />
-            <figcaption class="ba__cap"><span class="ba__tag">Before &amp; After</span><span class="ba__name">Hair Facial</span></figcaption>
-          </figure>
-          <!-- IMAGE 9 -->
-          <figure class="ba" data-cat="eyes">
-            <img src="assets/images/ba-undereye-filler.jpg" alt="Under-eye filler before and after result" loading="lazy" width="880" height="1450" />
-            <figcaption class="ba__cap"><span class="ba__tag">Before &amp; After</span><span class="ba__name">Under-eye Filler</span></figcaption>
-          </figure>
-          <!-- IMAGE 10 -->
-          <figure class="ba" data-cat="lips">
-            <img src="assets/images/ba-lip-chin-filler.jpg" alt="Lip and chin filler before and after result" loading="lazy" width="880" height="1450" />
-            <figcaption class="ba__cap"><span class="ba__tag">Before &amp; After</span><span class="ba__name">Lip &amp; Chin Filler</span></figcaption>
-          </figure>
-          <!-- IMAGE 11 -->
-          <figure class="ba" data-cat="contour">
-            <img src="assets/images/ba-jawline-enhancement.jpg" alt="Jawline enhancement before and after result" loading="lazy" width="880" height="1450" />
-            <figcaption class="ba__cap"><span class="ba__tag">Before &amp; After</span><span class="ba__name">Jawline Enhancement</span></figcaption>
-          </figure>
-          <!-- IMAGE 12 -->
-          <figure class="ba" data-cat="botox">
-            <img src="assets/images/ba-botox-2.jpg" alt="Botox before and after result" loading="lazy" width="880" height="1450" />
-            <figcaption class="ba__cap"><span class="ba__tag">Before &amp; After</span><span class="ba__name">Botox</span></figcaption>
-          </figure>
+        </div>
+
+        <div class="services__foot" data-reveal>
+          <p>The full collection holds eighteen real transformations.</p>
+          <a class="btn btn--gold" href="before-after.html">View all Before &amp; After</a>
         </div>
       </div>
     </section>
@@ -541,7 +583,7 @@
             <span class="hours__dot"></span>
             <span id="openStatusText">Open 7 days a week</span>
           </div>
-          <button class="btn btn--gold" data-open-booking>Reserve your slot</button>
+          <a class="btn btn--gold" href="book.html">Reserve your slot</a>
         </div>
 
         <div class="hours__card" data-reveal>
@@ -687,13 +729,16 @@
 
       <nav class="footer__nav" aria-label="Footer">
         <h4>Explore</h4>
-        <a href="#home">Home</a>
-        <a href="#about">About</a>
-        <a href="#services">Services</a>
-        <a href="#gallery">Before &amp; After</a>
-        <a href="#why">Why Us</a>
-        <a href="#testimonials">Reviews</a>
-        <a href="#contact">Contact</a>
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="doctors.html">Doctors</a>
+        <a href="services.html">Services</a>
+        <a href="products.html">Products</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="before-after.html">Before &amp; After</a>
+        <a href="faq.html">FAQ</a>
+        <a href="contact.html">Contact</a>
+        <a href="book.html">Book Appointment</a>
       </nav>
 
       <div class="footer__contact">
@@ -751,6 +796,7 @@
           <svg viewBox="0 0 24 24" class="modal__branch-wa" aria-hidden="true"><path d="M12 2a10 10 0 00-8.6 15l-1.3 4.8 4.9-1.3A10 10 0 1012 2z" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M8.5 7.8c-.3 0-.6.1-.8.4-.3.3-1 1-1 2.3 0 1.4 1 2.7 1.2 2.9.2.2 2 3.1 4.9 4.2 2.4.9 2.9.8 3.4.7.5 0 1.6-.6 1.9-1.3.2-.6.2-1.2.1-1.3-.1-.1-.3-.2-.6-.4-.3-.2-1.6-.8-1.9-.9-.3-.1-.4-.1-.6.1-.2.3-.6.9-.8 1-.1.2-.3.2-.5.1-.3-.1-1.2-.4-2.2-1.4-.8-.7-1.4-1.6-1.5-1.8-.2-.3 0-.4.1-.6l.4-.5c.2-.2.2-.3.3-.5.1-.2 0-.4 0-.5 0-.2-.6-1.5-.9-2-.2-.4-.4-.4-.6-.4z" fill="currentColor"/></svg>
         </a>
       </div>
+      <p class="bk__wa-note">Prefer to choose a doctor, date &amp; time? <a href="book.html" style="color:var(--gold-deep);font-weight:600">Use the full booking page →</a></p>
     </div>
   </div>
 

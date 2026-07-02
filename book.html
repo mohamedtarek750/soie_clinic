@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script>document.documentElement.className = document.documentElement.className.replace("no-js", "js");</script>
+  <meta name="theme-color" content="#F7F3EE" />
+
+  <title>Book an Appointment — SOIE Clinic | New Cairo &amp; Mohandseen</title>
+  <meta name="description" content="Book your SOIE Clinic appointment online: choose your branch, doctor, treatment, date and time — confirmed personally on WhatsApp." />
+  <meta name="author" content="SOIE Clinic" />
+  <link rel="canonical" href="https://soieclinic.com/book.html" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="SOIE Clinic" />
+  <meta property="og:title" content="Book an Appointment — SOIE Clinic | New Cairo &amp; Mohandseen" />
+  <meta property="og:description" content="Book your SOIE Clinic appointment online: choose your branch, doctor, treatment, date and time — confirmed personally on WhatsApp." />
+  <meta property="og:url" content="https://soieclinic.com/book.html" />
+  <meta property="og:image" content="https://soieclinic.com/assets/images/logo.png" />
+  <meta name="twitter:card" content="summary" />
+
+  <link rel="icon" type="image/png" href="assets/images/favicon.png" />
+  <link rel="apple-touch-icon" href="assets/images/favicon.png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Custom cursor (desktop, pointer devices only — enhanced in JS) -->
+  <div class="cursor" id="cursorDot" aria-hidden="true"></div>
+  <div class="cursor-ring" id="cursorRing" aria-hidden="true"></div>
+
+  <a href="#main" class="skip-link">Skip to content</a>
+
+  <header class="nav" id="nav">
+    <div class="nav__wrap">
+      <a href="index.html" class="nav__logo" aria-label="SOIE Clinic — home">
+        <img src="assets/images/logo.png" alt="SOIE Clinic" width="70" height="66" />
+        <span class="nav__logo-tag">CLINIC</span>
+      </a>
+
+      <nav class="nav__links" id="navLinks" aria-label="Primary">
+        <a href="index.html" class="nav__link">Home</a>
+        <a href="about.html" class="nav__link">About</a>
+        <a href="doctors.html" class="nav__link">Doctors</a>
+        <a href="services.html" class="nav__link">Services</a>
+        <a href="products.html" class="nav__link">Products</a>
+        <a href="gallery.html" class="nav__link">Gallery</a>
+        <a href="before-after.html" class="nav__link">Before & After</a>
+        <a href="faq.html" class="nav__link">FAQ</a>
+        <a href="contact.html" class="nav__link">Contact</a>
+        <a href="book.html" class="btn btn--gold nav__cta">Book Appointment</a>
+      </nav>
+
+      <button class="nav__burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="navLinks">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <section class="page-hero">
+      <div class="container">
+        <nav class="crumbs" aria-label="Breadcrumb" data-reveal><a href="index.html">Home</a> <span class="crumbs__sep">·</span> <span>Book Appointment</span></nav>
+        <p class="eyebrow" data-reveal style="margin-top:1.6rem"><span class="eyebrow__dot"></span> Reserve your visit</p>
+        <h1 class="page-hero__title" data-reveal data-reveal-delay="1">Book your<br /> <em>appointment</em>.</h1>
+        <p class="page-hero__lede" data-reveal data-reveal-delay="2">Choose your branch, doctor, treatment and preferred time — we'll confirm everything personally on WhatsApp. No payment is taken online.</p>
+        <svg class="page-hero__thread" viewBox="0 0 420 20" preserveAspectRatio="none" aria-hidden="true" data-reveal data-reveal-delay="3">
+          <path d="M4 12 C 120 -4, 300 22, 416 8" fill="none" stroke="url(#lgph)" stroke-width="1.6" stroke-linecap="round"/>
+          <defs><linearGradient id="lgph" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0" stop-color="#E4D3AE"/><stop offset="0.5" stop-color="#C8A96A"/><stop offset="1" stop-color="#A9884E"/>
+          </linearGradient></defs>
+        </svg>
+      </div>
+    </section>
+
+    <section class="section" style="padding-top:clamp(2.5rem,5vw,4rem)">
+      <div class="container bk">
+        <form class="bk__form" id="bkForm" novalidate autocomplete="off">
+          <div>
+            <div class="bk__step-label">
+              <span class="bk__step-num">1</span>
+              <h2 class="bk__step-title">Choose your branch</h2>
+            </div>
+            <div class="opt-grid">
+              <label class="opt">
+                <input type="radio" name="bkBranch" value="New Cairo" data-wa="201000033766" checked />
+                <span class="opt__name">New Cairo</span>
+                <span class="opt__meta">UMC 216, New Cairo</span>
+              </label>
+              <label class="opt">
+                <input type="radio" name="bkBranch" value="Mohandseen" data-wa="20100057669" />
+                <span class="opt__name">Mohandseen</span>
+                <span class="opt__meta">41st Lebanon St, Mohandseen</span>
+              </label>
+            </div>
+          </div>
+
+          <div>
+            <div class="bk__step-label">
+              <span class="bk__step-num">2</span>
+              <h2 class="bk__step-title">Choose your doctor</h2>
+            </div>
+            <div class="opt-grid">
+              <label class="opt">
+                <input type="radio" name="bkDoctor" value="No preference" checked />
+                <span class="opt__name">No preference</span>
+                <span class="opt__meta">First available specialist</span>
+              </label>
+              <label class="opt">
+                <input type="radio" name="bkDoctor" value="Dr. Ghada" data-slug="dr-ghada" />
+                <span class="opt__name">Dr. Ghada</span>
+                <span class="opt__meta">Health, Nutrition & Body Wellness</span>
+              </label>
+              <label class="opt">
+                <input type="radio" name="bkDoctor" value="Dr. Ghada Metwally" data-slug="dr-ghada-metwally" />
+                <span class="opt__name">Dr. Ghada Metwally</span>
+                <span class="opt__meta">Medical Facials & Skin Treatments</span>
+              </label>
+              <label class="opt">
+                <input type="radio" name="bkDoctor" value="Dr. Nada Salama" data-slug="dr-nada-salama" />
+                <span class="opt__name">Dr. Nada Salama</span>
+                <span class="opt__meta">SOIE Clinic Medical Team</span>
+              </label>
+            </div>
+          </div>
+
+          <div>
+            <div class="bk__step-label">
+              <span class="bk__step-num">3</span>
+              <h2 class="bk__step-title">Choose your treatment</h2>
+            </div>
+            <div class="select-wrap">
+              <select id="bkService" aria-label="Treatment">
+                <option value="Consultation" selected>Consultation — not sure yet</option>
+                <option value="Botox" data-slug="botox">Botox</option>
+                <option value="Dermal Filler" data-slug="dermal-filler">Dermal Filler</option>
+                <option value="Dentistry" data-slug="dentistry">Dentistry</option>
+                <option value="Laser" data-slug="laser">Laser</option>
+                <option value="Medical Facials" data-slug="facial">Medical Facials</option>
+                <option value="Hydrafacial" data-slug="hydrafacial">Hydrafacial</option>
+                <option value="Skin Boosters" data-slug="skin-boosters">Skin Boosters</option>
+                <option value="Chemical Peeling" data-slug="peeling">Chemical Peeling</option>
+                <option value="Exosomes" data-slug="exosomes">Exosomes</option>
+                <option value="Body Contouring" data-slug="body-contouring">Body Contouring</option>
+                <option value="Veneers" data-slug="veneers">Veneers</option>
+              </select>
+            </div>
+          </div>
+
+          <div>
+            <div class="bk__step-label">
+              <span class="bk__step-num">4</span>
+              <h2 class="bk__step-title">Pick a date</h2>
+            </div>
+            <input type="date" id="bkDate" aria-label="Appointment date" />
+          </div>
+
+          <div>
+            <div class="bk__step-label">
+              <span class="bk__step-num">5</span>
+              <h2 class="bk__step-title">Pick a time</h2>
+            </div>
+            <div class="slots" id="bkSlots" role="group" aria-label="Available times">
+              <p class="slots__hint">Choose a date first — available times will appear here.</p>
+            </div>
+          </div>
+        </form>
+
+        <aside class="bk__summary">
+          <div class="bk__card" data-reveal>
+            <h2 class="bk__card-title">Your appointment</h2>
+            <dl class="bk__rows">
+              <div class="bk__row"><dt>Branch</dt><dd id="sumBranch">New Cairo</dd></div>
+              <div class="bk__row"><dt>Doctor</dt><dd id="sumDoctor">No preference</dd></div>
+              <div class="bk__row"><dt>Treatment</dt><dd id="sumService">Consultation</dd></div>
+              <div class="bk__row"><dt>Date</dt><dd id="sumDate">—</dd></div>
+              <div class="bk__row"><dt>Time</dt><dd id="sumTime">—</dd></div>
+            </dl>
+            <a class="btn btn--gold btn--lg bk__submit" id="bkSubmit" href="#" target="_blank" rel="noopener noreferrer" aria-disabled="true">
+              <svg viewBox="0 0 24 24" class="btn__wa-ico" aria-hidden="true"><path d="M12 2a10 10 0 00-8.6 15l-1.3 4.8 4.9-1.3A10 10 0 1012 2z" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M8.5 7.8c-.3 0-.6.1-.8.4-.3.3-1 1-1 2.3 0 1.4 1 2.7 1.2 2.9.2.2 2 3.1 4.9 4.2 2.4.9 2.9.8 3.4.7.5 0 1.6-.6 1.9-1.3.2-.6.2-1.2.1-1.3-.1-.1-.3-.2-.6-.4-.3-.2-1.6-.8-1.9-.9-.3-.1-.4-.1-.6.1-.2.3-.6.9-.8 1-.1.2-.3.2-.5.1-.3-.1-1.2-.4-2.2-1.4-.8-.7-1.4-1.6-1.5-1.8-.2-.3 0-.4.1-.6l.4-.5c.2-.2.2-.3.3-.5.1-.2 0-.4 0-.5 0-.2-.6-1.5-.9-2-.2-.4-.4-.4-.6-.4z" fill="currentColor"/></svg> Confirm via WhatsApp
+            </a>
+            <p class="bk__wa-note">Your request opens in WhatsApp with all details pre-filled — our team replies
+            personally to confirm your slot. Nothing is booked or charged automatically.</p>
+          </div>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer__thread" aria-hidden="true"></div>
+    <div class="container footer__grid">
+      <div class="footer__brand">
+        <img src="assets/images/logo-cream.png" alt="SOIE Clinic" width="120" height="114" loading="lazy" />
+        <p class="footer__tag">Where natural beauty meets refined, medical-grade care. New Cairo &amp; Mohandseen.</p>
+        <div class="footer__social">
+          <a href="https://www.instagram.com/soieclinic" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="5" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="12" r="3.6" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="17.2" cy="6.8" r="1.1" fill="currentColor"/></svg></a>
+          <a href="https://www.facebook.com/share/1LuwqRbLPB/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 8h2V5h-2c-2.2 0-3.5 1.3-3.5 3.6V11H8v3h2.5v7h3v-7H16l.5-3h-3V9c0-.7.3-1 1-1z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg></a>
+          <a href="https://maps.app.goo.gl/N7cUNHKMz3ZwnkaB7" target="_blank" rel="noopener noreferrer" aria-label="Google Maps"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s7-6.2 7-12a7 7 0 10-14 0c0 5.8 7 12 7 12z" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="10" r="2.4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a>
+        </div>
+      </div>
+
+      <nav class="footer__nav" aria-label="Footer">
+        <h4>Explore</h4>
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="doctors.html">Doctors</a>
+        <a href="services.html">Services</a>
+        <a href="products.html">Products</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="before-after.html">Before & After</a>
+        <a href="faq.html">FAQ</a>
+        <a href="contact.html">Contact</a>
+        <a href="book.html">Book Appointment</a>
+      </nav>
+
+      <div class="footer__contact">
+        <h4>Branches</h4>
+        <p><strong>New Cairo</strong><br />UMC 216<br /><a href="https://wa.me/201000033766" target="_blank" rel="noopener noreferrer">WhatsApp →</a></p>
+        <p><strong>Mohandseen</strong><br />41st Lebanon St<br /><a href="https://wa.me/20100057669" target="_blank" rel="noopener noreferrer">WhatsApp →</a></p>
+      </div>
+    </div>
+
+    <div class="footer__bottom">
+      <div class="container footer__bottom-in">
+        <p>© <span id="year"></span> SOIE Clinic. All rights reserved.</p>
+        <p class="footer__made">Crafted with care · <span>Soie — beauty in silk</span></p>
+      </div>
+    </div>
+  </footer>
+
+  <button class="fab-wa" data-open-booking aria-label="Chat on WhatsApp">
+    <svg viewBox="0 0 24 24" class="btn__wa-ico" aria-hidden="true"><path d="M12 2a10 10 0 00-8.6 15l-1.3 4.8 4.9-1.3A10 10 0 1012 2z" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M8.5 7.8c-.3 0-.6.1-.8.4-.3.3-1 1-1 2.3 0 1.4 1 2.7 1.2 2.9.2.2 2 3.1 4.9 4.2 2.4.9 2.9.8 3.4.7.5 0 1.6-.6 1.9-1.3.2-.6.2-1.2.1-1.3-.1-.1-.3-.2-.6-.4-.3-.2-1.6-.8-1.9-.9-.3-.1-.4-.1-.6.1-.2.3-.6.9-.8 1-.1.2-.3.2-.5.1-.3-.1-1.2-.4-2.2-1.4-.8-.7-1.4-1.6-1.5-1.8-.2-.3 0-.4.1-.6l.4-.5c.2-.2.2-.3.3-.5.1-.2 0-.4 0-.5 0-.2-.6-1.5-.9-2-.2-.4-.4-.4-.6-.4z" fill="currentColor"/></svg>
+    <span class="fab-wa__pulse" aria-hidden="true"></span>
+  </button>
+
+  <button class="to-top" id="toTop" aria-label="Back to top">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V6M6 12l6-6 6 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </button>
+
+  <div class="modal" id="bookingModal" aria-hidden="true">
+    <div class="modal__backdrop" data-close-booking></div>
+    <div class="modal__panel" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <button class="modal__close" data-close-booking aria-label="Close">×</button>
+      <img src="assets/images/logo.png" alt="" class="modal__logo" width="90" height="86" loading="lazy" />
+      <p class="eyebrow modal__eyebrow"><span class="eyebrow__dot"></span> Book your appointment</p>
+      <h3 class="modal__title" id="modalTitle">Choose your branch</h3>
+      <p class="modal__sub">Message us on WhatsApp and our team will confirm your slot.</p>
+
+      <div class="modal__branches">
+        <a class="modal__branch" href="https://wa.me/201000033766" target="_blank" rel="noopener noreferrer">
+          <div>
+            <span class="modal__branch-city">New Cairo</span>
+            <span class="modal__branch-addr">UMC 216</span>
+          </div>
+          <svg viewBox="0 0 24 24" class="modal__branch-wa" aria-hidden="true"><path d="M12 2a10 10 0 00-8.6 15l-1.3 4.8 4.9-1.3A10 10 0 1012 2z" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M8.5 7.8c-.3 0-.6.1-.8.4-.3.3-1 1-1 2.3 0 1.4 1 2.7 1.2 2.9.2.2 2 3.1 4.9 4.2 2.4.9 2.9.8 3.4.7.5 0 1.6-.6 1.9-1.3.2-.6.2-1.2.1-1.3-.1-.1-.3-.2-.6-.4-.3-.2-1.6-.8-1.9-.9-.3-.1-.4-.1-.6.1-.2.3-.6.9-.8 1-.1.2-.3.2-.5.1-.3-.1-1.2-.4-2.2-1.4-.8-.7-1.4-1.6-1.5-1.8-.2-.3 0-.4.1-.6l.4-.5c.2-.2.2-.3.3-.5.1-.2 0-.4 0-.5 0-.2-.6-1.5-.9-2-.2-.4-.4-.4-.6-.4z" fill="currentColor"/></svg>
+        </a>
+        <a class="modal__branch" href="https://wa.me/20100057669" target="_blank" rel="noopener noreferrer">
+          <div>
+            <span class="modal__branch-city">Mohandseen</span>
+            <span class="modal__branch-addr">41st Lebanon St</span>
+          </div>
+          <svg viewBox="0 0 24 24" class="modal__branch-wa" aria-hidden="true"><path d="M12 2a10 10 0 00-8.6 15l-1.3 4.8 4.9-1.3A10 10 0 1012 2z" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M8.5 7.8c-.3 0-.6.1-.8.4-.3.3-1 1-1 2.3 0 1.4 1 2.7 1.2 2.9.2.2 2 3.1 4.9 4.2 2.4.9 2.9.8 3.4.7.5 0 1.6-.6 1.9-1.3.2-.6.2-1.2.1-1.3-.1-.1-.3-.2-.6-.4-.3-.2-1.6-.8-1.9-.9-.3-.1-.4-.1-.6.1-.2.3-.6.9-.8 1-.1.2-.3.2-.5.1-.3-.1-1.2-.4-2.2-1.4-.8-.7-1.4-1.6-1.5-1.8-.2-.3 0-.4.1-.6l.4-.5c.2-.2.2-.3.3-.5.1-.2 0-.4 0-.5 0-.2-.6-1.5-.9-2-.2-.4-.4-.4-.6-.4z" fill="currentColor"/></svg>
+        </a>
+      </div>
+      <p class="bk__wa-note">Prefer to choose a doctor, date &amp; time? <a href="book.html" style="color:var(--gold-deep);font-weight:600">Use the full booking page →</a></p>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

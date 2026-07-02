@@ -4,7 +4,10 @@
    Handles: loader, sticky nav, mobile menu, scroll-spy, scroll reveals,
    animated counters, hero parallax, custom cursor, booking modal,
    gallery filtering, lightbox, testimonials slider, back-to-top,
-   footer year, and live "open / closed" working-hours status.
+   footer year, live "open / closed" working-hours status, the FAQ
+   accordion, and the booking page (doctor · service · date · time →
+   pre-filled WhatsApp handoff). Every module guards for its elements,
+   so the same file is shared safely across all pages of the site.
    All motion respects the user's prefers-reduced-motion setting.
    ===================================================================== */
 (function () {
@@ -601,6 +604,177 @@
   }
 
   /* =====================================================================
+     14. FAQ ACCORDION — native <details>; opening one closes its siblings
+     so the list stays calm and scannable.
+     ===================================================================== */
+  function initAccordion() {
+    $$('.acc').forEach(function (acc) {
+      var items = $$('details', acc);
+      items.forEach(function (d) {
+        on(d, 'toggle', function () {
+          if (!d.open) return;
+          items.forEach(function (other) {
+            if (other !== d) other.open = false;
+          });
+        });
+      });
+    });
+  }
+
+  /* =====================================================================
+     15. BOOKING PAGE — doctor · service · date · time → WhatsApp handoff.
+     No backend: the summary builds a pre-filled wa.me link per branch and
+     the team confirms personally. Slots follow the clinic's working hours
+     (Sat–Thu 10:00–23:00, Fri 12:00–22:00), hourly, last start 1h before
+     close; past times are hidden when the chosen date is today.
+     ===================================================================== */
+  function initBooking() {
+    var form = $('#bkForm');
+    if (!form) return;
+
+    var serviceSel = $('#bkService');
+    var dateInput  = $('#bkDate');
+    var slotsWrap  = $('#bkSlots');
+    var submit     = $('#bkSubmit');
+    var sum = {
+      branch:  $('#sumBranch'),
+      doctor:  $('#sumDoctor'),
+      service: $('#sumService'),
+      date:    $('#sumDate'),
+      time:    $('#sumTime')
+    };
+    var selectedTime = '';
+
+    function pad(n) { return n < 10 ? '0' + n : String(n); }
+    function fmt12(h) {
+      var ampm = h >= 12 ? 'PM' : 'AM';
+      var hh = h % 12; if (hh === 0) hh = 12;
+      return hh + ':00 ' + ampm;
+    }
+
+    // limit the calendar to today → +60 days
+    var today = new Date();
+    var max = new Date(today.getTime() + 60 * 24 * 3600 * 1000);
+    if (dateInput) {
+      dateInput.min = today.getFullYear() + '-' + pad(today.getMonth() + 1) + '-' + pad(today.getDate());
+      dateInput.max = max.getFullYear() + '-' + pad(max.getMonth() + 1) + '-' + pad(max.getDate());
+    }
+
+    function checked(name) {
+      var el = form.querySelector('input[name="' + name + '"]:checked');
+      return el || null;
+    }
+
+    function prettyDate(val) {
+      if (!val) return '—';
+      var parts = val.split('-');
+      var d = new Date(parseInt(parts[0], 10), parseInt(parts[1], 10) - 1, parseInt(parts[2], 10));
+      var days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+      var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+      return days[d.getDay()] + ' ' + d.getDate() + ' ' + months[d.getMonth()] + ' ' + d.getFullYear();
+    }
+
+    function buildSlots() {
+      if (!slotsWrap || !dateInput) return;
+      selectedTime = '';
+      slotsWrap.innerHTML = '';
+      var val = dateInput.value;
+      if (!val) {
+        slotsWrap.innerHTML = '<p class="slots__hint">Choose a date first — available times will appear here.</p>';
+        update();
+        return;
+      }
+      var parts = val.split('-');
+      var d = new Date(parseInt(parts[0], 10), parseInt(parts[1], 10) - 1, parseInt(parts[2], 10));
+      var friday = d.getDay() === 5;
+      var open = friday ? 12 : 10;
+      var close = friday ? 22 : 23;
+      var now = new Date();
+      var isToday = d.toDateString() === now.toDateString();
+      var added = 0;
+      for (var h = open; h < close; h++) {
+        if (isToday && h <= now.getHours()) continue; // no past slots today
+        var b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'slot';
+        b.textContent = fmt12(h);
+        (function (btn) {
+          on(btn, 'click', function () {
+            $$('.slot', slotsWrap).forEach(function (s) { s.classList.remove('is-selected'); });
+            btn.classList.add('is-selected');
+            selectedTime = btn.textContent;
+            update();
+          });
+        })(b);
+        slotsWrap.appendChild(b);
+        added++;
+      }
+      if (!added) {
+        slotsWrap.innerHTML = '<p class="slots__hint">No more times today — please pick the next day.</p>';
+      }
+      update();
+    }
+
+    function update() {
+      var branchEl = checked('bkBranch');
+      var doctorEl = checked('bkDoctor');
+      var branch  = branchEl ? branchEl.value : 'New Cairo';
+      var doctor  = doctorEl ? doctorEl.value : 'No preference';
+      var service = serviceSel ? serviceSel.value : 'Consultation';
+      var dateVal = dateInput ? dateInput.value : '';
+
+      if (sum.branch)  sum.branch.textContent  = branch;
+      if (sum.doctor)  sum.doctor.textContent  = doctor;
+      if (sum.service) sum.service.textContent = service;
+      if (sum.date)    sum.date.textContent    = prettyDate(dateVal);
+      if (sum.time)    sum.time.textContent    = selectedTime || '—';
+
+      if (!submit) return;
+      var ready = !!(dateVal && selectedTime);
+      submit.setAttribute('aria-disabled', ready ? 'false' : 'true');
+      if (ready) {
+        var wa = branchEl ? branchEl.getAttribute('data-wa') : '201000033766';
+        var msg = 'Hello SOIE Clinic! I would like to book an appointment.\n'
+                + '• Branch: ' + branch + '\n'
+                + '• Doctor: ' + doctor + '\n'
+                + '• Treatment: ' + service + '\n'
+                + '• Date: ' + prettyDate(dateVal) + '\n'
+                + '• Time: ' + selectedTime;
+        submit.href = 'https://wa.me/' + wa + '?text=' + encodeURIComponent(msg);
+      } else {
+        submit.removeAttribute('href');
+      }
+    }
+
+    // pre-select doctor / service passed from profile & treatment pages
+    try {
+      var params = new URLSearchParams(window.location.search);
+      var docSlug = params.get('doctor');
+      var svcSlug = params.get('service');
+      if (docSlug) {
+        var dr = form.querySelector('input[name="bkDoctor"][data-slug="' + docSlug + '"]');
+        if (dr) dr.checked = true;
+      }
+      if (svcSlug && serviceSel) {
+        var opt = serviceSel.querySelector('option[data-slug="' + svcSlug + '"]');
+        if (opt) opt.selected = true;
+      }
+    } catch (e) { /* URLSearchParams unsupported — defaults stay */ }
+
+    $$('input[name="bkBranch"], input[name="bkDoctor"]', form).forEach(function (r) {
+      on(r, 'change', update);
+    });
+    on(serviceSel, 'change', update);
+    on(dateInput, 'change', buildSlots);
+    // block navigation while incomplete
+    on(submit, 'click', function (e) {
+      if (submit.getAttribute('aria-disabled') === 'true') e.preventDefault();
+    });
+
+    update();
+  }
+
+  /* =====================================================================
      BOOT
      ===================================================================== */
   function safe(fn, name) {
@@ -624,5 +798,7 @@
     safe(initToTop, 'to-top');
     safe(initYear, 'year');
     safe(initHours, 'hours');
+    safe(initAccordion, 'accordion');
+    safe(initBooking, 'booking');
   });
 })();
