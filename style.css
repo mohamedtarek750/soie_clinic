@@ -358,6 +358,8 @@ html.js .hero__thread path { stroke-dasharray: 520; stroke-dashoffset: 520; }
   box-shadow: var(--sh-lg); border: 1px solid var(--line);
   aspect-ratio: 4/5;
 }
+/* branded before/after cards are taller — match their ratio so nothing crops */
+.about__frame--card { aspect-ratio: 900 / 1390; }
 .about__frame img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s var(--ease); }
 .about__media:hover .about__frame img { transform: scale(1.05); }
 
