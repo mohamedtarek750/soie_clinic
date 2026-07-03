@@ -275,7 +275,7 @@ body.menu-open .nav__burger span:nth-child(3) { top: 22px; transform: rotate(-45
 --------------------------------------------------------------- */
 .hero {
   position: relative; min-height: 100vh; min-height: 100svh; display: flex; align-items: center;
-  padding-top: 6rem; overflow: hidden;
+  padding: 6rem 0 7.5rem; overflow: hidden; /* bottom padding keeps the CTAs clear of the scroll cue */
   background:
     radial-gradient(120% 90% at 82% 8%, rgba(228,211,174,.45) 0%, rgba(228,211,174,0) 45%),
     radial-gradient(90% 80% at 8% 92%, rgba(200,169,106,.16) 0%, rgba(200,169,106,0) 50%),
@@ -332,6 +332,7 @@ html.js .hero__thread path { stroke-dasharray: 520; stroke-dashoffset: 520; }
 .hero__scroll-line { width: 1px; height: 44px; background: linear-gradient(var(--gold), transparent); position: relative; overflow: hidden; }
 .hero__scroll-line::after { content: ""; position: absolute; top: -50%; left: 0; width: 100%; height: 50%; background: var(--gold-deep); animation: scrollDot 2s var(--ease) infinite; }
 @keyframes scrollDot { 0% { top: -50%; } 60%,100% { top: 100%; } }
+@media (max-height: 660px) { .hero__scroll { display: none; } } /* short windows: no room for the cue */
 
 /* ---------------------------------------------------------------
    9 · MARQUEE (flowing silk)
@@ -762,6 +763,7 @@ html.js [data-reveal].is-in, [data-reveal].is-in { opacity: 1; transform: none; 
   body.menu-open .nav__links { transform: none; }
   .nav__link { font-size: 1.4rem; font-family: var(--f-display); }
   .nav__cta { margin-left: 0; margin-top: 1rem; }
+  .hero__scroll { display: none; } /* stacked/wrapped CTAs need the room */
 }
 
 @media (max-width: 860px) {
@@ -833,6 +835,10 @@ html.js .page-hero__thread path { stroke-dasharray: 520; stroke-dashoffset: 520;
 .hero__video {
   position: absolute; inset: 0; width: 100%; height: 100%;
   object-fit: cover; z-index: 0;
+  /* the clip is portrait 464×672 — a whisper of blur + overscan hides
+     upscaling artifacts on large screens; the veil and grain do the rest */
+  filter: blur(1.5px) brightness(.96);
+  transform: scale(1.04);
 }
 .hero__veil {
   position: absolute; inset: 0; z-index: 1; pointer-events: none;
@@ -846,6 +852,16 @@ html.js .page-hero__thread path { stroke-dasharray: 520; stroke-dashoffset: 520;
 .hero--video .btn--ghost { color: var(--linen); border-color: rgba(247,243,238,.35); }
 .hero--video .btn--ghost:hover { border-color: var(--gold); color: var(--gold-soft); }
 .hero--video .hero__orb { display: none; }
+
+/* nav sits on the dark video before it frosts — switch to light ink
+   (script.js adds .nav--dark-hero when a video hero is present) */
+.nav--dark-hero:not(.is-scrolled) .nav__link { color: var(--linen); }
+.nav--dark-hero:not(.is-scrolled) .nav__link:hover { color: var(--gold-soft); }
+.nav--dark-hero:not(.is-scrolled) .nav__logo-tag { color: var(--gold-soft); }
+.nav--dark-hero:not(.is-scrolled) .nav__burger span { background: var(--linen); }
+/* …but never inside the cream mobile-menu overlay */
+body.menu-open .nav--dark-hero:not(.is-scrolled) .nav__link { color: var(--char); }
+body.menu-open .nav--dark-hero:not(.is-scrolled) .nav__burger span { background: var(--char); }
 
 /* ---------------------------------------------------------------
    27 · CTA BAND  (shared closing call-to-action on inner pages)
@@ -956,6 +972,18 @@ html.js .page-hero__thread path { stroke-dasharray: 520; stroke-dashoffset: 520;
 .info-card__label svg { width: 18px; height: 18px; }
 .info-card__value { font-family: var(--f-display); font-weight: 600; font-size: 1.3rem; line-height: 1.25; }
 .info-card__text { font-size: .9rem; color: var(--char-soft); margin-top: .35rem; line-height: 1.65; }
+
+/* numbered treatment-process steps */
+.mini-steps { display: grid; gap: .9rem; margin: 1.2rem 0 1.6rem; counter-reset: step; list-style: none; padding: 0; }
+.mini-steps li { position: relative; padding-left: 2.7rem; color: var(--char-soft); font-size: .96rem; line-height: 1.65; }
+.mini-steps li strong { color: var(--char); font-weight: 600; }
+.mini-steps li::before {
+  counter-increment: step; content: counter(step);
+  position: absolute; left: 0; top: .05rem;
+  width: 27px; height: 27px; border-radius: 50%;
+  background: var(--grad-gold); color: #fff;
+  font-size: .72rem; font-weight: 700; display: grid; place-items: center;
+}
 
 /* related doctor mini-card */
 .rel-dr {
@@ -1089,6 +1117,46 @@ html.js .page-hero__thread path { stroke-dasharray: 520; stroke-dashoffset: 520;
 .prod-card__foot { margin-top: 1.2rem; padding-top: 1.1rem; border-top: 1px solid var(--line); font-size: .8rem; color: var(--gold-deep); font-weight: 600; letter-spacing: .06em; }
 
 /* ---------------------------------------------------------------
+   32b · CLINIC JOURNEY  (consultation → follow-up steps)
+--------------------------------------------------------------- */
+.journey { display: grid; grid-template-columns: repeat(5, 1fr); gap: clamp(.9rem, 1.8vw, 1.4rem); position: relative; }
+.j-step {
+  position: relative; text-align: center;
+  background: var(--ivory); border: 1px solid var(--line); border-radius: var(--radius);
+  padding: 2rem 1.2rem 1.8rem;
+  transition: transform .5s var(--ease), box-shadow .5s var(--ease), border-color .5s var(--ease);
+}
+.j-step:hover { transform: translateY(-6px); box-shadow: var(--sh-md); border-color: var(--gold-soft); }
+.j-step__num {
+  position: absolute; top: -14px; left: 50%; transform: translateX(-50%);
+  width: 28px; height: 28px; border-radius: 50%;
+  background: var(--grad-gold); color: #fff;
+  font-size: .74rem; font-weight: 700; display: grid; place-items: center;
+  box-shadow: var(--sh-gold);
+}
+.j-step__ico {
+  width: 58px; height: 58px; border-radius: 16px; margin: 0 auto 1rem;
+  display: grid; place-items: center;
+  background: linear-gradient(150deg, var(--linen), #F3EBDD);
+  border: 1px solid var(--line); color: var(--gold-deep);
+  transition: transform .5s var(--ease), background .5s var(--ease), color .5s var(--ease);
+}
+.j-step__ico svg { width: 28px; height: 28px; }
+.j-step:hover .j-step__ico { transform: translateY(-3px) rotate(-4deg); background: var(--grad-gold); color: #fff; }
+.j-step__title { font-family: var(--f-display); font-weight: 600; font-size: 1.25rem; line-height: 1.15; }
+.j-step__desc { font-size: .84rem; color: var(--char-soft); line-height: 1.6; margin-top: .45rem; }
+/* connecting gold thread between steps (desktop) */
+.j-step:not(:last-child)::after {
+  content: ""; position: absolute; top: 50%; right: calc(-0.5 * clamp(.9rem, 1.8vw, 1.4rem) - 8px);
+  width: 16px; height: 1px; background: var(--gold);
+  opacity: .6;
+}
+@media (max-width: 1050px) {
+  .journey { grid-template-columns: repeat(auto-fit, minmax(min(210px, 100%), 1fr)); }
+  .j-step:not(:last-child)::after { display: none; }
+}
+
+/* ---------------------------------------------------------------
    33 · BEFORE/AFTER COMPARISON SLIDER
    A hidden full-size <input type="range"> drives the CSS var --pos,
    giving native drag, touch and keyboard control with zero drag math.
@@ -1178,6 +1246,20 @@ html.js .page-hero__thread path { stroke-dasharray: 520; stroke-dashoffset: 520;
   .tst__card { padding: 1.8rem .4rem; }
   .filters { gap: .45rem; }
   .filter { padding: .5rem 1rem; font-size: .74rem; }
+}
+
+/* ---------------------------------------------------------------
+   35 · PAGE TRANSITIONS  (View Transitions API — a soft cross-fade
+   between pages in Chrome/Edge/Safari 18+; older browsers simply
+   navigate normally, nothing breaks)
+--------------------------------------------------------------- */
+@view-transition { navigation: auto; }
+::view-transition-old(root) { animation: vtOut .25s var(--ease-2) both; }
+::view-transition-new(root) { animation: vtIn .38s var(--ease) both; }
+@keyframes vtOut { to { opacity: 0; } }
+@keyframes vtIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(root), ::view-transition-new(root) { animation: none; }
 }
 
 /* ---------------------------------------------------------------

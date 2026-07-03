@@ -32,10 +32,6 @@ Doctor/treatment pages deep-link with `book.html?doctor=<slug>` and
 
 ## Content that still needs owner input
 
-- **Hero video** — see `assets/videos/README.txt`. Instagram reels are
-  behind Instagram's login wall and cannot be embedded, so the original
-  silk-gradient hero remains active until a licensed clinic video
-  (`assets/videos/hero-loop.mp4`) is provided.
 - **Dr. Nada Salama's profile** — her Instagram is not publicly
   readable, so only verified basics are shown. Add her specialty, bio
   and treatments in `doctor-nada-salama.html` when confirmed.
@@ -43,6 +39,10 @@ Doctor/treatment pages deep-link with `book.html?doctor=<slug>` and
   with the clinic's actual retail range (brand, product, price) when
   confirmed.
 - **4.9 rating stat** — sample figure; replace with the real Google rating.
+- **Clinic statistics** — a commented-out block in the homepage stats
+  section is ready for verified figures (happy clients, years of
+  experience, treatments performed, patient satisfaction). Un-comment
+  and replace the `XX` placeholders only with confirmed numbers.
 
 Already provided by the owner: doctor portraits
 (`assets/images/doctor-*.jpg`) and real client reviews — the homepage

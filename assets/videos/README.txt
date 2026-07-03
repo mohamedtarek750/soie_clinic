@@ -1,24 +1,17 @@
-HERO VIDEO — WHAT IS NEEDED
-===========================
+HERO VIDEO
+==========
 
-The homepage hero is prepared for a cinematic background video, but no
-video is shipped: the clinic's Instagram reels sit behind Instagram's
-login wall and are not licensed for hotlinking, so nothing could be
-embedded legally or reliably.
+hero-loop.mp4 — the owner-provided clinic clip (the lit Soie sign and a
+welcoming door), optimized for the web:
 
-To activate the video hero, place here:
+  - H.264 high profile, CRF 24, 30 fps, audio stripped
+  - 464x672 (portrait source), ~340 KB, +faststart for instant playback
+  - poster frame: ../images/hero-poster.jpg
 
-  hero-loop.mp4   MP4 / H.264, ~10–20 second seamless loop,
-                  1920×1080, ideally under 8 MB (compress with
-                  HandBrake or ffmpeg: crf 26–28, no audio track)
+It plays as the homepage hero background (autoplay, muted, loop,
+playsinline) behind a dark veil for text readability. Users with
+prefers-reduced-motion get the still poster instead (script.js).
 
-…and a poster frame at:
-
-  ../images/hero-poster.jpg   (first frame, JPEG, ~150 KB)
-
-Then in index.html:
-  1. Add class "hero--video" to the <section class="hero">
-  2. Un-comment the <video> + .hero__veil block at the top of the hero
-
-The video plays autoplay + muted + loop + playsinline with a dark
-overlay for text readability. Styles live in style.css §26.
+To swap in a new clip, replace hero-loop.mp4 (and ideally the poster)
+with the same settings. A landscape 1920x1080 master, 10-20 s seamless
+loop, under 8 MB, will look even sharper on large desktop screens.

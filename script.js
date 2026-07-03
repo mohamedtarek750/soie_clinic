@@ -72,11 +72,22 @@
     var navLinks = $('#navLinks');
     var links    = $$('.nav__link');
 
+    /* pages with a dark video hero need light nav ink + the cream logo
+       while the bar is still transparent */
+    var darkHero = !!$('.hero--video');
+    var logoImg = nav ? $('.nav__logo img', nav) : null;
+    if (darkHero && nav) nav.classList.add('nav--dark-hero');
+
     /* shrink / frost the bar after a little scroll */
     function onScroll() {
       if (!nav) return;
-      if (window.scrollY > 24) nav.classList.add('is-scrolled');
-      else nav.classList.remove('is-scrolled');
+      var scrolled = window.scrollY > 24;
+      nav.classList.toggle('is-scrolled', scrolled);
+      if (darkHero && logoImg) {
+        var wantCream = !scrolled && !document.body.classList.contains('menu-open');
+        var src = wantCream ? 'assets/images/logo-cream.png' : 'assets/images/logo.png';
+        if (logoImg.getAttribute('src') !== src) logoImg.setAttribute('src', src);
+      }
     }
     onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });
@@ -88,6 +99,7 @@
         burger.setAttribute('aria-expanded', 'false');
         burger.setAttribute('aria-label', 'Open menu');
       }
+      onScroll(); // restore dark-hero logo state
     }
     function toggleMenu() {
       var open = document.body.classList.toggle('menu-open');
@@ -95,6 +107,7 @@
         burger.setAttribute('aria-expanded', open ? 'true' : 'false');
         burger.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
       }
+      onScroll(); // dark logo on the cream overlay, cream logo on the video
     }
     on(burger, 'click', toggleMenu);
     // close after tapping any link (mobile) and on Esc
@@ -229,6 +242,27 @@
       el.textContent = format(el, 0); // markup holds the final value for no-JS; reset before animating
       io.observe(el);
     });
+  }
+
+  /* =====================================================================
+     4b. HERO VIDEO — respect reduced motion (still veil + gradient stays
+     readable) and nudge autoplay on iOS low-power mode.
+     ===================================================================== */
+  function initHeroVideo() {
+    var v = $('.hero__video');
+    if (!v) return;
+    if (reduceMotion) {
+      v.removeAttribute('autoplay');
+      if (v.pause) v.pause();
+      if (v.parentNode) v.parentNode.removeChild(v);
+      return;
+    }
+    function tryPlay() {
+      var p = v.play && v.play();
+      if (p && p.catch) p.catch(function () { /* poster stays — fine */ });
+    }
+    on(document, 'touchstart', tryPlay, { once: true, passive: true });
+    tryPlay();
   }
 
   /* =====================================================================
@@ -820,6 +854,7 @@
     safe(initNav, 'nav');
     safe(initReveals, 'reveals');
     safe(initCounters, 'counters');
+    safe(initHeroVideo, 'hero video');
     safe(initParallax, 'parallax');
     safe(initCursor, 'cursor');
     safe(initModal, 'modal');
