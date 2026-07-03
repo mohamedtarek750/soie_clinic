@@ -1,4 +1,4 @@
-# SOIE Clinic — Website
+# Soie Clinic — Website
 
 Luxury aesthetic clinic in New Cairo & Mohandseen. A fully static,
 dependency-free site: hand-crafted HTML + CSS + vanilla JavaScript.

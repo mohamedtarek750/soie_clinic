@@ -1,5 +1,5 @@
 /* =====================================================================
-   SOIE Clinic — script.js
+   Soie Clinic — script.js
    Vanilla JavaScript. No libraries, no frameworks.
    Handles: loader, sticky nav, mobile menu, scroll-spy, scroll reveals,
    animated counters, hero parallax, custom cursor, booking modal,
@@ -745,7 +745,7 @@
       slotsWrap.innerHTML = '';
       var val = dateInput.value;
       if (!val) {
-        slotsWrap.innerHTML = '<p class="slots__hint">Choose a date first — available times will appear here.</p>';
+        slotsWrap.innerHTML = '<p class="slots__hint">Choose a date first and the available times will appear here.</p>';
         update();
         return;
       }
@@ -775,7 +775,7 @@
         added++;
       }
       if (!added) {
-        slotsWrap.innerHTML = '<p class="slots__hint">No more times today — please pick the next day.</p>';
+        slotsWrap.innerHTML = '<p class="slots__hint">No more times today. Please pick the next day.</p>';
       }
       update();
     }
@@ -799,7 +799,7 @@
       submit.setAttribute('aria-disabled', ready ? 'false' : 'true');
       if (ready) {
         var wa = branchEl ? branchEl.getAttribute('data-wa') : '201000033766';
-        var msg = 'Hello SOIE Clinic! I would like to book an appointment.\n'
+        var msg = 'Hello Soie Clinic! I would like to book an appointment.\n'
                 + '• Branch: ' + branch + '\n'
                 + '• Doctor: ' + doctor + '\n'
                 + '• Treatment: ' + service + '\n'
@@ -845,7 +845,7 @@
   function safe(fn, name) {
     try { fn(); }
     catch (e) {
-      if (window.console && console.warn) console.warn('SOIE: "' + name + '" failed —', e);
+      if (window.console && console.warn) console.warn('Soie: "' + name + '" failed —', e);
     }
   }
 
