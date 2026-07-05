@@ -1,62 +1,57 @@
-# Soie Clinic — Website
+# Soie Clinic — Website & Clinic Management System
 
-Luxury aesthetic clinic in New Cairo & Mohandseen. A fully static,
-dependency-free site: hand-crafted HTML + CSS + vanilla JavaScript.
-No build step — open `index.html` or serve the folder with any static server.
+Luxury aesthetic clinic in New Cairo & Mohandseen. One repository, two
+faces:
 
-## Site map
+- **Marketing site** — the original hand-crafted static site (HTML/CSS/JS),
+  served unchanged from `/public` at the same URLs it always had.
+- **Clinic management system** — a Next.js 15 + TypeScript application
+  wrapped around it: PostgreSQL via Prisma, JWT auth in HttpOnly cookies,
+  a real scheduling engine, patient accounts and a full admin dashboard.
 
-| Page | File |
-|---|---|
-| Home (landing) | `index.html` |
-| About | `about.html` |
-| Doctors | `doctors.html` → `doctor-ghada.html`, `doctor-ghada-metwally.html`, `doctor-nada-salama.html` |
-| Services | `services.html` → `service-<treatment>.html` (11 treatment pages) |
-| Products | `products.html` |
-| Before & After | `before-after.html` |
-| Book Appointment | `book.html` |
-| Contact | `contact.html` |
-| FAQ | `faq.html` |
+## Quick start (development)
 
-Shared assets: `style.css` (design tokens + all components), `script.js`
-(all behaviour, element-guarded so one file serves every page),
-`sitemap.xml`, `robots.txt`.
+```bash
+npm install
+cp .env.example .env          # then edit values (AUTH_SECRET at minimum)
 
-## Booking
+npm run db:dev                # terminal 1: local PostgreSQL (embedded, ./.pgdata)
+npm run db:migrate            # terminal 2: apply migrations
+npm run db:seed               #             admin account + doctors + services
+npm run dev                   #             app on http://localhost:3000
+```
 
-`book.html` lets visitors choose **branch → doctor → treatment → date →
-time**; the summary builds a pre-filled WhatsApp message to the chosen
-branch. There is no backend — the team confirms each request personally.
-Doctor/treatment pages deep-link with `book.html?doctor=<slug>` and
-`book.html?service=<slug>`.
+Seed admin: `SEED_ADMIN_EMAIL` / `SEED_ADMIN_PASSWORD` from `.env`
+(change them before seeding; change the password after first login).
 
-## Content that still needs owner input
+## Production
 
-- **Dr. Nada Salama's profile** — her Instagram is not publicly
-  readable, so only verified basics are shown. Add her specialty, bio
-  and treatments in `doctor-nada-salama.html` when confirmed.
-- **Products** — `products.html` lists doctor-curated categories; replace
-  with the clinic's actual retail range (brand, product, price) when
-  confirmed.
-- **4.9 rating stat** — sample figure; replace with the real Google rating.
-- **Clinic statistics** — a commented-out block in the homepage stats
-  section is ready for verified figures (happy clients, years of
-  experience, treatments performed, patient satisfaction). Un-comment
-  and replace the `XX` placeholders only with confirmed numbers.
+Point `DATABASE_URL` at a managed PostgreSQL, set a strong `AUTH_SECRET`
+and `APP_ORIGIN`, configure SMTP for transactional mail, then:
 
-Already provided by the owner: doctor portraits
-(`assets/images/doctor-*.jpg`) and real client reviews — the homepage
-testimonials are transcribed verbatim from the clinic's WhatsApp feedback
-screenshots (names are blurred in the originals, so cards say
-"Verified client").
+```bash
+npm run build && npm run db:deploy && npm start
+```
 
-## Editing notes
+## Map
 
-- Design tokens (palette, type, shadows, easing) live at the top of
-  `style.css`; all pages inherit them.
-- The doctors' public data was compiled from their public Instagram
-  profiles (July 2026): @drghada.health, @dr_ghada_metwally_facials,
-  @dr.nadasalama.
-- Inner pages were scaffolded from a shared template, so nav / footer /
-  modal markup is identical across files — if you change one, mirror the
-  change in the others (or ask your developer to regenerate).
+| Area | URL | Code |
+|---|---|---|
+| Marketing site | `/`, `/*.html` | `public/` (static, untouched) |
+| Auth | `/login`, `/register`, `/forgot-password`, `/reset-password` | `src/app/(auth)/` |
+| Patient account | `/account`, `/account/book`, `/account/profile` | `src/app/account/` |
+| Admin dashboard | `/admin/…` | `src/app/admin/` |
+| API | `/api/…` | `src/app/api/` |
+| Domain services | scheduling, reports, payroll, auth | `src/lib/` |
+| Database schema | 20 models | `prisma/schema.prisma` |
+
+See `docs/ARCHITECTURE.md` for the full design: scheduling rules,
+security model, financial flows and scaling notes.
+
+## Marketing-site content notes
+
+- Hero video is optional and currently disabled; assets and re-enable
+  steps live in `assets/videos/README.txt` (under `public/`).
+- Placeholder stats in the homepage (commented out) await verified
+  figures; the 4.9 rating is a sample value.
+- Dr. Nada Salama's public profile carries verified basics only.

@@ -21,3 +21,6 @@ logs/
 # misc
 .DS_Store
 *.tsbuildinfo
+
+# runtime uploads (admin photo/product images)
+public/uploads/
