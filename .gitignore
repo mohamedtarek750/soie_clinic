@@ -1,26 +1,2 @@
 # local editor/agent settings
 .claude/
-
-# dependencies & builds
-node_modules/
-.next/
-out/
-
-# environment & secrets
-.env
-.env.local
-.env*.local
-
-# local development database (embedded postgres data dir)
-.pgdata/
-
-# logs
-*.log
-logs/
-
-# misc
-.DS_Store
-*.tsbuildinfo
-
-# runtime uploads (admin photo/product images)
-public/uploads/
