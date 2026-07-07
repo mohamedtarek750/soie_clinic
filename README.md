@@ -38,7 +38,6 @@ Doctor/treatment pages deep-link with `book.html?doctor=<slug>` and
 - **Products** — `products.html` lists doctor-curated categories; replace
   with the clinic's actual retail range (brand, product, price) when
   confirmed.
-- **4.9 rating stat** — sample figure; replace with the real Google rating.
 - **Clinic statistics** — a commented-out block in the homepage stats
   section is ready for verified figures (happy clients, years of
   experience, treatments performed, patient satisfaction). Un-comment
@@ -46,9 +45,8 @@ Doctor/treatment pages deep-link with `book.html?doctor=<slug>` and
 
 Already provided by the owner: doctor portraits
 (`assets/images/doctor-*.jpg`) and real client reviews — the homepage
-testimonials are transcribed verbatim from the clinic's WhatsApp feedback
-screenshots (names are blurred in the originals, so cards say
-"Verified client").
+shows the clinic's WhatsApp feedback screenshots exactly as provided
+(`assets/images/reviews/`), with names blurred in the originals.
 
 ## Editing notes
 
