@@ -838,7 +838,9 @@ html.js [data-reveal].is-in, [data-reveal].is-in { opacity: 1; transform: none; 
   .hero__scroll { display: none; } /* overlaps stacked CTAs on small screens */
   .footer__grid { grid-template-columns: 1fr; }
   .to-top { display: none; }
-  .about__badge { position: static; margin: -2rem auto 0; max-width: 260px; }
+  /* Stacked layout: the card rests gently on the image's lower edge and
+     the grid gap guarantees clear space before the heading below. */
+  .about__badge { position: static; transform: none; margin: -1.75rem auto 0; max-width: min(300px, 100%); }
   .about__ring { display: none; }
   .tst__card blockquote { font-size: 1.35rem; }
 }
