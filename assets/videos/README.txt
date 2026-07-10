@@ -1,20 +1,20 @@
-HERO VIDEO (currently disabled)
-===============================
+HERO VIDEO
+==========
 
-The owner prefers the original silk-gradient hero, so the video hero is
-switched off — but everything needed to re-enable it is kept here:
+hero-loop.mp4 — the clinic-tour reel from Soie's own Instagram
+(reception with the lit sign, treatment prep, the equipment rooms),
+prepared for the web:
 
-  hero-loop.mp4 — owner-provided clinic clip (the lit Soie sign and a
-  welcoming door), already optimized for the web:
-    - H.264 high profile, CRF 24, 30 fps, audio stripped
-    - 464x672 (portrait source), ~340 KB, +faststart
-  poster frame: ../images/hero-poster.jpg
+  - H.264 high profile, CRF 26, 25 fps, audio stripped (plays silent)
+  - 360x640 portrait source, 68 s, ~1.9 MB, +faststart
+  - poster frame: ../images/hero-poster.jpg (the reception shot)
 
-To re-activate, in index.html:
-  1. Add class "hero--video" to the <section class="hero">
-  2. Un-comment the <video> + .hero__veil block at the top of the hero
+It plays as the homepage hero background: autoplay, muted, loop,
+playsinline, behind a dark veil for text readability. Users with
+prefers-reduced-motion get the still poster instead (script.js), and
+the whisper of blur in style.css §26 hides upscaling artifacts on
+large screens.
 
-It will play autoplay + muted + loop + playsinline behind a dark veil;
-users with prefers-reduced-motion get the still poster (script.js).
-Styles live in style.css §26. A landscape 1920x1080 master, 10-20 s
-seamless loop, under 8 MB, would look even sharper on large screens.
+To swap in a new clip, replace hero-loop.mp4 (and ideally the poster)
+with the same settings. A landscape 1920x1080 master, 10-20 s seamless
+loop, under 8 MB, would look even sharper on big desktop displays.

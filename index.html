@@ -115,22 +115,18 @@
     <!-- ============================================================
          HERO
     ============================================================= -->
-    <section class="hero" id="home">
-      <!-- ============================================================
-           OPTIONAL CINEMATIC VIDEO HERO (currently disabled — the owner
-           prefers the original silk-gradient hero). An optimized clip
-           already exists at assets/videos/hero-loop.mp4 (~340 KB) with a
-           poster at assets/images/hero-poster.jpg. To re-activate:
-             1. Add class "hero--video" to this <section>
-             2. Un-comment the two elements below.
-           Styles live in style.css §26; script.js handles reduced motion.
+    <section class="hero hero--video" id="home">
+      <!-- Cinematic hero: the clinic-tour reel (reception, treatments,
+           rooms) from the clinic's own Instagram, muted and optimized to
+           ~1.9 MB. Autoplay + muted + loop + playsinline behind the dark
+           veil; users with prefers-reduced-motion get the still poster
+           (script.js). Styles: style.css §26. -->
       <video class="hero__video" autoplay muted loop playsinline
              preload="auto" poster="assets/images/hero-poster.jpg" aria-hidden="true">
         <source src="assets/videos/hero-loop.mp4" type="video/mp4" />
       </video>
       <div class="hero__veil" aria-hidden="true"></div>
-      ============================================================= -->
-      <!-- ambient silk orbs (parallax) -->
+      <!-- ambient silk orbs (hidden while the video hero is active) -->
       <div class="hero__orb hero__orb--1" data-parallax="0.18" aria-hidden="true"></div>
       <div class="hero__orb hero__orb--2" data-parallax="0.30" aria-hidden="true"></div>
       <div class="hero__grain" aria-hidden="true"></div>

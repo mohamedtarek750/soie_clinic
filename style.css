@@ -896,7 +896,7 @@ html.js .page-hero__thread path { stroke-dasharray: 520; stroke-dashoffset: 520;
 .hero__video {
   position: absolute; inset: 0; width: 100%; height: 100%;
   object-fit: cover; z-index: 0;
-  /* the clip is portrait 464×672 — a whisper of blur + overscan hides
+  /* the reel is portrait 360×640 — a whisper of blur + overscan hides
      upscaling artifacts on large screens; the veil and grain do the rest */
   filter: blur(1.5px) brightness(.96);
   transform: scale(1.04);
