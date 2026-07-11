@@ -245,23 +245,29 @@
   }
 
   /* =====================================================================
-     4b. HERO VIDEO — respect reduced motion (still veil + gradient stays
-     readable) and nudge autoplay on iOS low-power mode.
+     4b. HERO VIDEO — the muted ambient clinic reel behind the hero.
+     It must play on every device (the OS "reduce animations" setting on
+     some laptops used to strip it out, leaving a bare veil — never
+     again). The element always stays in the DOM so its poster shows
+     while loading or wherever autoplay is refused; first tap, click or
+     key press retries playback for strict browsers.
      ===================================================================== */
   function initHeroVideo() {
     var v = $('.hero__video');
     if (!v) return;
-    if (reduceMotion) {
-      v.removeAttribute('autoplay');
-      if (v.pause) v.pause();
-      if (v.parentNode) v.parentNode.removeChild(v);
-      return;
-    }
+    // the property (not just the attribute) is what autoplay policies check
+    v.muted = true;
+    v.setAttribute('muted', '');
+    v.defaultMuted = true;
+
     function tryPlay() {
       var p = v.play && v.play();
-      if (p && p.catch) p.catch(function () { /* poster stays — fine */ });
+      if (p && p.catch) p.catch(function () { /* poster keeps showing — fine */ });
     }
     on(document, 'touchstart', tryPlay, { once: true, passive: true });
+    on(document, 'pointerdown', tryPlay, { once: true, passive: true });
+    on(document, 'keydown', tryPlay, { once: true });
+    on(v, 'canplay', tryPlay, { once: true });
     tryPlay();
   }
 
