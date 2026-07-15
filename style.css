@@ -1,5 +1,5 @@
 /* =====================================================================
-   Soie Clinic — style.css
+   Soie Clinic - style.css
    Luxury aesthetic clinic. Theme: warm beige + gold, "silk" (soie) motif.
    Display: Cormorant Garamond · Body/UI: Manrope
    ===================================================================== */
@@ -62,7 +62,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
-  /* proper kerning + ligatures everywhere — the quiet mark of set-by-hand type */
+  /* proper kerning + ligatures everywhere - the quiet mark of set-by-hand type */
   font-kerning: normal;
   font-feature-settings: "kern" 1, "liga" 1, "clig" 1, "calt" 1;
 }
@@ -412,7 +412,7 @@ html.js .hero__thread path { stroke-dasharray: 520; stroke-dashoffset: 520; }
   box-shadow: var(--sh-lg); border: 1px solid var(--line);
   aspect-ratio: 4/5;
 }
-/* branded before/after cards are taller — match their ratio so nothing crops */
+/* branded before/after cards are taller - match their ratio so nothing crops */
 .about__frame--card { aspect-ratio: 900 / 1390; }
 .about__frame img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s var(--ease); }
 .about__media:hover .about__frame img { transform: scale(1.05); }
@@ -613,7 +613,7 @@ html.js .thread-divider path { stroke-dasharray: 2600; stroke-dashoffset: 2600; 
 .tst__meta { font-size: .78rem; letter-spacing: .1em; text-transform: uppercase; color: var(--gold-deep); }
 .tst__stars { color: var(--gold); letter-spacing: .25em; margin-top: .8rem; font-size: .9rem; }
 
-/* real client reviews — screenshot film strip (snap scroll + lightbox) */
+/* real client reviews - screenshot film strip (snap scroll + lightbox) */
 .rv { max-width: 1320px; margin-inline: auto; }
 .rv__strip {
   display: flex; gap: clamp(.9rem, 2vw, 1.4rem);
@@ -789,7 +789,7 @@ body.modal-open, body.menu-open { overflow: hidden; }
 /* Elements only start hidden when JS is confirmed running (html.js is set
    by a tiny inline script in <head>). Without JS the page renders fully.
    Opacity resolves a beat before the lift finishes, so content settles
-   into place rather than sliding — a calmer, more expensive feel. */
+   into place rather than sliding - a calmer, more expensive feel. */
 html.js [data-reveal] {
   opacity: 0;
   transform: translateY(22px);
@@ -896,7 +896,7 @@ html.js .page-hero__thread path { stroke-dasharray: 520; stroke-dashoffset: 520;
 .hero__video {
   position: absolute; inset: 0; width: 100%; height: 100%;
   object-fit: cover; z-index: 0;
-  /* the reel is portrait 360×640 — a whisper of blur + overscan hides
+  /* the reel is portrait 360×640 - a whisper of blur + overscan hides
      upscaling artifacts on large screens; the veil and grain do the rest */
   filter: blur(1.5px) brightness(.96);
   transform: scale(1.04);
@@ -914,7 +914,7 @@ html.js .page-hero__thread path { stroke-dasharray: 520; stroke-dashoffset: 520;
 .hero--video .btn--ghost:hover { border-color: var(--gold); color: var(--gold-soft); }
 .hero--video .hero__orb { display: none; }
 
-/* nav sits on the dark video before it frosts — switch to light ink
+/* nav sits on the dark video before it frosts - switch to light ink
    (script.js adds .nav--dark-hero when a video hero is present) */
 .nav--dark-hero:not(.is-scrolled) .nav__link { color: var(--linen); }
 .nav--dark-hero:not(.is-scrolled) .nav__link:hover { color: var(--gold-soft); }
@@ -959,7 +959,7 @@ body.menu-open .nav--dark-hero:not(.is-scrolled) .nav__burger span { background:
 .dr-card:hover { transform: translateY(-8px); box-shadow: var(--sh-md); }
 .dr-card:hover::before { transform: scaleX(1); }
 
-/* monogram avatar — replace with a real portrait when available */
+/* monogram avatar - replace with a real portrait when available */
 .dr-ava {
   width: 118px; height: 118px; border-radius: 50%; margin: 0 auto 1.4rem;
   display: grid; place-items: center; position: relative;
@@ -1275,7 +1275,7 @@ body.menu-open .nav--dark-hero:not(.is-scrolled) .nav__burger span { background:
 .cmp-feature__hint { text-align: center; margin-top: .4rem; font-size: .8rem; color: var(--char-soft); }
 
 /* ---------------------------------------------------------------
-   34 · RESPONSIVE — new components
+   34 · RESPONSIVE - new components
 --------------------------------------------------------------- */
 @media (max-width: 980px) {
   .profile { grid-template-columns: 1fr; }
@@ -1310,7 +1310,7 @@ body.menu-open .nav--dark-hero:not(.is-scrolled) .nav__burger span { background:
 }
 
 /* ---------------------------------------------------------------
-   35 · PAGE TRANSITIONS  (View Transitions API — a soft cross-fade
+   35 · PAGE TRANSITIONS  (View Transitions API - a soft cross-fade
    between pages in Chrome/Edge/Safari 18+; older browsers simply
    navigate normally, nothing breaks)
 --------------------------------------------------------------- */

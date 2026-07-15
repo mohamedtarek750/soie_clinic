@@ -1,5 +1,5 @@
 /* =====================================================================
-   Soie Clinic — script.js
+   Soie Clinic - script.js
    Vanilla JavaScript. No libraries, no frameworks.
    Handles: loader, sticky nav, mobile menu, scroll-spy, scroll reveals,
    animated counters, hero parallax, custom cursor, booking modal,
@@ -35,7 +35,7 @@
   }
 
   /* =====================================================================
-     1. LOADER — reveal the page once everything is in
+     1. LOADER - reveal the page once everything is in
      ===================================================================== */
   function initLoader() {
     var loader = $('#loader');
@@ -245,9 +245,9 @@
   }
 
   /* =====================================================================
-     4b. HERO VIDEO — the muted ambient clinic reel behind the hero.
+     4b. HERO VIDEO - the muted ambient clinic reel behind the hero.
      It must play on every device (the OS "reduce animations" setting on
-     some laptops used to strip it out, leaving a bare veil — never
+     some laptops used to strip it out, leaving a bare veil - never
      again). The element always stays in the DOM so its poster shows
      while loading or wherever autoplay is refused; first tap, click or
      key press retries playback for strict browsers.
@@ -262,7 +262,7 @@
 
     function tryPlay() {
       var p = v.play && v.play();
-      if (p && p.catch) p.catch(function () { /* poster keeps showing — fine */ });
+      if (p && p.catch) p.catch(function () { /* poster keeps showing - fine */ });
     }
     on(document, 'touchstart', tryPlay, { once: true, passive: true });
     on(document, 'pointerdown', tryPlay, { once: true, passive: true });
@@ -272,7 +272,7 @@
   }
 
   /* =====================================================================
-     5. HERO PARALLAX — subtle depth on [data-parallax] elements
+     5. HERO PARALLAX - subtle depth on [data-parallax] elements
      ===================================================================== */
   function initParallax() {
     if (reduceMotion) return;
@@ -295,7 +295,7 @@
   }
 
   /* =====================================================================
-     6. CUSTOM CURSOR — a gold dot + trailing ring (fine pointers only)
+     6. CUSTOM CURSOR - a gold dot + trailing ring (fine pointers only)
      ===================================================================== */
   function initCursor() {
     var dot  = $('#cursorDot');
@@ -338,7 +338,7 @@
   }
 
   /* =====================================================================
-     7. BOOKING MODAL — opened by any [data-open-booking]
+     7. BOOKING MODAL - opened by any [data-open-booking]
      ===================================================================== */
   function initModal() {
     var modal = $('#bookingModal');
@@ -383,7 +383,7 @@
   }
 
   /* =====================================================================
-     8. GALLERY FILTER — .filter[data-filter] toggles .ba[data-cat]
+     8. GALLERY FILTER - .filter[data-filter] toggles .ba[data-cat]
      ===================================================================== */
   function initGalleryFilter() {
     var buttons = $$('.filter');
@@ -407,7 +407,7 @@
   }
 
   /* =====================================================================
-     9. LIGHTBOX — click a before/after card to view it enlarged.
+     9. LIGHTBOX - click a before/after card to view it enlarged.
      Prev/Next step through whatever is currently visible.
      ===================================================================== */
   function initLightbox() {
@@ -477,7 +477,7 @@
   }
 
   /* =====================================================================
-     10. TESTIMONIALS SLIDER — transform track, dots, auto-advance, swipe
+     10. TESTIMONIALS SLIDER - transform track, dots, auto-advance, swipe
      ===================================================================== */
   function initTestimonials() {
     var track = $('#tstTrack');
@@ -551,7 +551,7 @@
   }
 
   /* =====================================================================
-     10a. BEFORE/AFTER COMPARISON SLIDER — the hidden range input drives
+     10a. BEFORE/AFTER COMPARISON SLIDER - the hidden range input drives
      the --pos CSS var; drag, touch and arrow keys all come for free.
      ===================================================================== */
   function initCompare() {
@@ -565,7 +565,7 @@
   }
 
   /* =====================================================================
-     10b. REVIEW STRIP — arrow buttons step the snap-scrolling screenshot
+     10b. REVIEW STRIP - arrow buttons step the snap-scrolling screenshot
      strip by one card; native swipe/scroll works as-is.
      ===================================================================== */
   function initReviewStrip() {
@@ -606,7 +606,7 @@
   }
 
   /* =====================================================================
-     13. WORKING HOURS — highlight today + live open / closed status.
+     13. WORKING HOURS - highlight today + live open / closed status.
      We read today's row straight from the DOM so the status always
      matches whatever hours are shown (no duplicated data to keep in sync).
      ===================================================================== */
@@ -644,7 +644,7 @@
     if (todayRow) {
       var timeEl = $('.hours__time', todayRow);
       if (timeEl) {
-        var parts = timeEl.textContent.split(/\s+to\s+|[–—-]/); // "10:00 AM to 11:00 PM" (or legacy dash)
+        var parts = timeEl.textContent.split(/\s+to\s+/); // "10:00 AM to 11:00 PM"
         if (parts.length === 2) {
           var start = parseTime(parts[0]);
           var end = parseTime(parts[1]);
@@ -675,7 +675,7 @@
   }
 
   /* =====================================================================
-     14. FAQ ACCORDION — native <details>; opening one closes its siblings
+     14. FAQ ACCORDION - native <details>; opening one closes its siblings
      so the list stays calm and scannable.
      ===================================================================== */
   function initAccordion() {
@@ -693,7 +693,7 @@
   }
 
   /* =====================================================================
-     15. BOOKING PAGE — doctor · service · date · time → WhatsApp handoff.
+     15. BOOKING PAGE - doctor · service · date · time → WhatsApp handoff.
      No backend: the summary builds a pre-filled wa.me link per branch and
      the team confirms personally. Slots follow the clinic's working hours
      (Sat–Thu 10:00–23:00, Fri 12:00–22:00), hourly, last start 1h before
@@ -830,7 +830,7 @@
         var opt = serviceSel.querySelector('option[data-slug="' + svcSlug + '"]');
         if (opt) opt.selected = true;
       }
-    } catch (e) { /* URLSearchParams unsupported — defaults stay */ }
+    } catch (e) { /* URLSearchParams unsupported - defaults stay */ }
 
     $$('input[name="bkBranch"], input[name="bkDoctor"]', form).forEach(function (r) {
       on(r, 'change', update);
@@ -851,7 +851,7 @@
   function safe(fn, name) {
     try { fn(); }
     catch (e) {
-      if (window.console && console.warn) console.warn('Soie: "' + name + '" failed —', e);
+      if (window.console && console.warn) console.warn('Soie: "' + name + '" failed -', e);
     }
   }
 
