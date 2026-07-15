@@ -644,7 +644,7 @@
     if (todayRow) {
       var timeEl = $('.hours__time', todayRow);
       if (timeEl) {
-        var parts = timeEl.textContent.split(/[–—-]/); // en/em dash or hyphen
+        var parts = timeEl.textContent.split(/\s+to\s+|[–—-]/); // "10:00 AM to 11:00 PM" (or legacy dash)
         if (parts.length === 2) {
           var start = parseTime(parts[0]);
           var end = parseTime(parts[1]);
@@ -737,7 +737,7 @@
     }
 
     function prettyDate(val) {
-      if (!val) return '—';
+      if (!val) return 'Not set';
       var parts = val.split('-');
       var d = new Date(parseInt(parts[0], 10), parseInt(parts[1], 10) - 1, parseInt(parts[2], 10));
       var days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
@@ -798,7 +798,7 @@
       if (sum.doctor)  sum.doctor.textContent  = doctor;
       if (sum.service) sum.service.textContent = service;
       if (sum.date)    sum.date.textContent    = prettyDate(dateVal);
-      if (sum.time)    sum.time.textContent    = selectedTime || '—';
+      if (sum.time)    sum.time.textContent    = selectedTime || 'Not set';
 
       if (!submit) return;
       var ready = !!(dateVal && selectedTime);
